@@ -27,7 +27,7 @@ While not a formal changelog, my progress is documented in [JOURNAL.md](JOURNAL.
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
     ```
-4. While in the `build` directory, run the program with `./PizzaBoy`
+4. While in the `build` directory, run the program with `./DTS_91896`
 5. Or run all tests with `ctest`
 
 ### Windows
