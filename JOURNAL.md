@@ -6,6 +6,7 @@
   - [Added a README](#added-a-readme)
   - [Storing multiple orders](#storing-multiple-orders)
   - [A better `OrderList`](#a-better-orderlist)
+  - [Documentation](#documentation)
 
 # Journal
 ### Project Setup
@@ -66,4 +67,19 @@ void doesnt_exist() {
   list.pushOrder(Order("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave."));
   ASSERT_THROWS(list.erase(list.find("Bob")), std::invalid_argument);
 }
+```
+
+### Documentation
+I added documentation to the [Order](src/Order.h) and [OrderList](src/OrderList.h) classes, using [Doxygen](https://www.doxygen.nl/index.html)-style comments. This allows my IDE to show me the documentation when I hover over a class or method, and will also allow me to generate documentation if I want to later on.
+```cpp
+/**
+* @brief Find the first order that matches a given keyphrase.
+*
+* This method searches the descriptions of the orders for the given keyphrase
+* and returns an iterator to the first matching order.
+*
+* @param keyphrase The keyphrase to search for.
+* @return std::list<Order>::iterator An iterator to the found order, or end() if not found.
+*/
+std::list<Order>::iterator find(const std::string& keyphrase);
 ```
