@@ -2,6 +2,7 @@
 #define DTS_91896_TEST_MACROS
 
 #include <string>
+#include <stdexcept>
 
 // A custom exception to throw when an assertion fails
 struct AssertionFailed : std::runtime_error {
