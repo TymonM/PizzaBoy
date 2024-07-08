@@ -7,6 +7,7 @@
   - [Storing multiple orders](#storing-multiple-orders)
   - [A better `OrderList`](#a-better-orderlist)
   - [Documentation](#documentation)
+  - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
 
 # Journal
 ### Project Setup
@@ -82,4 +83,15 @@ I added documentation to the [Order](src/Order.h) and [OrderList](src/OrderList.
 * @return std::list<Order>::iterator An iterator to the found order, or end() if not found.
 */
 std::list<Order>::iterator find(const std::string& keyphrase);
+```
+
+### Exporting `OrderList`s to a file (and import, too)
+In a real restaurant, we're going to want to have multiple people with access to the same list of orders, and also we'll be opening and closing sessions all the time.
+
+I added the functionality to export an `OrderList` to a file, and also to import/read from a file. This is done in a very simple way for now, simply treating each order as a separate line, in a .txt file. Of course, this comes with its own tests in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp).
+
+Here's what a sample exported order looks like:
+```text
+One pepperoni pizza for Mike, delivered to 1 Elm Ave.
+Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.
 ```

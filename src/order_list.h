@@ -2,7 +2,9 @@
 #define DTS_91896_ORDER_LIST_H
 
 #include "order.h"
+
 #include <list>
+#include <fstream>
 
 /**
  * @brief The OrderList class manages a collection of Order objects.
@@ -20,6 +22,14 @@ public:
      * @brief Construct a new Order List object.
      */
     OrderList();
+
+    /**
+     * @brief Construct a new Order List object from a file.
+     * Equivalent to calling `importOrders(filename)`.
+     *
+     * @param filename The name of the file to read orders from.
+     */
+    explicit OrderList(const std::string& filename);
 
     /**
      * @brief Add a new order to the list.
@@ -60,6 +70,27 @@ public:
      * @return std::list<Order>::iterator An iterator to the found order, or end() if not found.
      */
     std::list<Order>::iterator find(const std::string& keyphrase);
+
+    /**
+     * @brief Export the list of orders to a file.
+     *
+     * This method writes the descriptions of all orders in the list to a file.
+     * Each order is simply written on a separate line.
+     *
+     * @param filename The name of the file to write orders to.
+     */
+    void exportOrders(const std::string& filename) const;
+
+    /**
+     * @brief Import a list of orders from a file.
+     *
+     * This method reads the descriptions of orders from a file and adds them to the list.
+     * Each line in the file is treated as a separate order.
+     *
+     * @param filename The name of the file to read orders from.
+     * @throws std::invalid_argument If the file cannot be opened.
+     */
+    void importOrders(const std::string& filename);
 };
 
 #endif //DTS_91896_ORDER_LIST_H
