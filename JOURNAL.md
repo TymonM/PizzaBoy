@@ -5,6 +5,7 @@
   - [Simple tests](#simple-tests)
   - [Added a README](#added-a-readme)
   - [Storing multiple orders](#storing-multiple-orders)
+  - [A better `OrderList`](#a-better-orderlist)
 
 # Journal
 ### Project Setup
@@ -50,3 +51,19 @@ void create_order_list() {
 }
 ```
 Note that I also created a new and improved `ASSERT` macro, with much better fail messages. This is in [tests/macros.cpp](tests/macros.cpp).
+
+### A better `OrderList`
+Rather than store the orders in a [std::vector](https://en.cppreference.com/w/cpp/container/vector), I realised it would be beneficial to use a [std::list](https://en.cppreference.com/w/cpp/container/list) instead. This is because we will be adding and removing orders frequently, and a `std::list` is much better at this than a `std::vector`. It doesn't hinder us much, since we don't need random access anyway.
+
+Along with this, I added a `find` method to the `OrderList` class, which will return an iterator to the first order which contains the keyword in the description. This is useful for searching for orders by name, for example. These features are tested in two new files: [tests/test_order_list_erase.cpp](tests/test_order_list_erase.cpp) and [tests/test_order_list_find.cpp](tests/test_order_list_find.cpp).
+
+In order to test these, I also added a new `ASSERT_THROWS` macro, used like so:
+```cpp
+// tests/test_order_list_erase.cpp
+void doesnt_exist() {
+  OrderList list{};
+  list.pushOrder(Order("One pepperoni pizza for Mike, delivered to 1 Elm Ave."));
+  list.pushOrder(Order("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave."));
+  ASSERT_THROWS(list.erase(list.find("Bob")), std::invalid_argument);
+}
+```

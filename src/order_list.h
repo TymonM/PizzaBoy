@@ -3,18 +3,18 @@
 
 #include "order.h"
 
-#include <vector>
+#include <list>
 
 class OrderList {
 private:
-    std::vector<Order> orders{};
+    std::list<Order> orders{};
 public:
     OrderList();
     void pushOrder(const Order& order);
     size_t size() const;
-    const Order& getOrder(size_t index) const;
-    const std::vector<Order>& getOrders() const;
-    void erase(size_t index);
+    const std::list<Order>& getOrders() const;
+    void erase(std::list<Order>::iterator it);
+    std::list<Order>::iterator find(const std::string& keyphrase);
 };
 
 

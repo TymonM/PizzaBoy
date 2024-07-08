@@ -9,14 +9,21 @@ size_t OrderList::size() const {
     return orders.size();
 }
 
-const Order& OrderList::getOrder(size_t index) const {
-    return orders.at(index);
-}
-
-const std::vector<Order>& OrderList::getOrders() const {
+const std::list<Order>& OrderList::getOrders() const {
     return orders;
 }
 
-void OrderList::erase(size_t index) {
-    orders.erase(orders.begin() + index);
+void OrderList::erase(std::list<Order>::iterator it) {
+    if (it != orders.end()) {
+        orders.erase(it);
+    } else {
+        // todo: custom exception
+        throw std::invalid_argument("Order not found");
+    }
+}
+
+std::list<Order>::iterator OrderList::find(const std::string &keyphrase) {
+    return std::find_if(orders.begin(), orders.end(), [&keyphrase](const Order& order) {
+        return order.getDescription().find(keyphrase) != std::string::npos;
+    });
 }
