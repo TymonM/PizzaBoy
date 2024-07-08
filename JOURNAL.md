@@ -4,6 +4,7 @@
   - [Project Setup](#project-setup)
   - [Simple tests](#simple-tests)
   - [Added a README](#added-a-readme)
+  - [Storing multiple orders](#storing-multiple-orders)
 
 # Journal
 ### Project Setup
