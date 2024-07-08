@@ -3,6 +3,7 @@
 - [Contents](#contents)
 - [Overview](#overview)
 - [Journal](#journal)
+- [Testing](#testing)
 - [Installation and Usage](#installation-and-usage)
   - [MacOS / Linux](#macos--linux)
   - [Windows](#windows)
@@ -14,6 +15,11 @@ See [task.pdf](task.pdf) for the task requirements.
 
 ## Journal
 While not a formal changelog, my progress is documented in [JOURNAL.md](JOURNAL.md). These are like extended commit messages.
+
+## Testing
+This project is thoroughly tested with a lot of unit tests.
+
+All tests can be found in the [tests](tests) directory. Each file is named `test_[FEATURE].cpp` contains one to a few tests, for that particular feature. I use [CTest](https://cmake.org/cmake/help/latest/manual/ctest.1.html) to run these for convenience, but no testing framework is used for writing them, just the custom macros I wrote in [tests/macros.cpp](tests/macros.cpp). While many frameworks do exist, I realised I didn't need a lot of the features they provide, and I wanted to keep things simple, so I made my own.
 
 ## Installation and Usage
 ### MacOS / Linux
