@@ -27,3 +27,25 @@ For now, [src/main.cpp](src/main.cpp) is just a 'hello world' program, since I w
 
 ### Added a README
 Added a [README.md](README.md) file, which contains a brief overview of the project, and instructions on how to build and run the project. I also added a [task.pdf](task.pdf) file, which contains the task requirements for the project.
+
+### Storing multiple orders
+Having a single order is great, but we need to be able to store multiple orders. I added a `OrderList` class, which is a simple wrapper around a `std::vector<Order>`. For now, it does nothing fancy. I also added a test for this class, which is in [tests/test_new_order.cpp](tests/test_new_order.cpp):
+```cpp
+// tests/test_new_order.cpp
+void create_order_list() {
+  OrderList list{};
+  ASSERT(list.size() == 0);
+  Order order1("One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
+  Order order2("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+  
+  list.pushOrder(order1);
+  list.pushOrder(order2);
+  ASSERT(list.size() == 2);
+  ASSERT(list.getOrder(0).getDescription() == "One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
+  ASSERT(list.getOrder(1).getDescription() == "Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+  list.erase(0);
+  ASSERT(list.size() == 1);
+  ASSERT(list.getOrder(0).getDescription() == "Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+}
+```
+Note that I also created a new and improved `ASSERT` macro, with much better fail messages. This is in [tests/macros.cpp](tests/macros.cpp).
