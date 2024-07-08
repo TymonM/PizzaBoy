@@ -71,7 +71,7 @@ void doesnt_exist() {
 ```
 
 ### Documentation
-I added documentation to the [Order](src/Order.h) and [OrderList](src/OrderList.h) classes, using [Doxygen](https://www.doxygen.nl/index.html)-style comments. This allows my IDE to show me the documentation when I hover over a class or method, and will also allow me to generate documentation if I want to later on.
+I added documentation to the [Order](src/order.h) and [OrderList](src/order_list.h) classes, using [Doxygen](https://www.doxygen.nl/index.html)-style comments. This allows my IDE to show me the documentation when I hover over a class or method, and will also allow me to generate documentation if I want to later on.
 ```cpp
 /**
 * @brief Find the first order that matches a given keyphrase.
