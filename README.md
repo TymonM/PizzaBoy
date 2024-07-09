@@ -33,7 +33,7 @@ All tests can be found in the [tests](tests) directory. Each file is named `test
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
     ```
-4. While in the `build` directory, run the program with `./DTS_91896`
+4. While in the `build` directory, run the program with `./main`
 5. Or run all tests with `ctest`
 
 ### Windows
