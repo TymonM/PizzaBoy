@@ -102,3 +102,6 @@ I realised that the previous export method was not very good, since it would not
 One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\"\\
 Two pepperoni \n\npizzas for "Alice", delivered to 3 Arch Ave.
 ```
+
+### `MenuItem`s
+I added a `MenuItem` class, which is a simple class that holds a name and a price. Orders now contain a list of `MenuItem`s, in addition to a description, such as "For Mike" (although I will remove the description later).

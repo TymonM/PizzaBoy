@@ -3,7 +3,7 @@ project(DTS_91896)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_library(DTS_91896_lib STATIC src/order.cpp src/order_list.cpp src/order_list.h)
+add_library(DTS_91896_lib STATIC src/order.cpp src/order_list.cpp src/menu_item.cpp)
 
 add_executable(main src/main.cpp)
 target_link_libraries(main DTS_91896_lib)
