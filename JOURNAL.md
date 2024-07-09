@@ -95,3 +95,10 @@ Here's what a sample exported order looks like:
 One pepperoni pizza for Mike, delivered to 1 Elm Ave.
 Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.
 ```
+
+### Better export
+I realised that the previous export method was not very good, since it would not work if the description of an order contained a newline character. I changed the export to escape newline characters as `\n`, and also to escape backslashes as `\\`. Now orders with multiline descriptions can be exported and imported correctly:
+```text
+One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\"\\
+Two pepperoni \n\npizzas for "Alice", delivered to 3 Arch Ave.
+```

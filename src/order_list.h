@@ -2,15 +2,14 @@
 #define DTS_91896_ORDER_LIST_H
 
 #include "order.h"
-
 #include <list>
 
 /**
  * @brief The OrderList class manages a collection of Order objects.
  *
  * This class uses a std::list to store orders, allowing for efficient insertion
- * and deletion of orders. It provides methods to add, remove, and find orders
- * within the list.
+ * and deletion of orders. It provides methods to add, remove, find orders within the list,
+ * and manage orders through file import/export functionalities.
  */
 class OrderList {
 private:
@@ -24,7 +23,8 @@ public:
 
     /**
      * @brief Construct a new Order List object from a file.
-     * Equivalent to calling `importOrders(filename)`.
+     * This constructor initializes the list by importing orders from the specified file,
+     * effectively loading a list of orders at creation.
      *
      * @param filename The name of the file to read orders from.
      */
@@ -53,6 +53,8 @@ public:
 
     /**
      * @brief Erase an order from the list.
+     * This method removes an order from the list based on the provided iterator.
+     * If the iterator points to the end of the list, a std::invalid_argument exception is thrown.
      *
      * @param it An iterator pointing to the order to erase.
      * @throws std::invalid_argument If the provided iterator is end().
@@ -61,9 +63,8 @@ public:
 
     /**
      * @brief Find the first order that matches a given keyphrase.
-     *
      * This method searches the descriptions of the orders for the given keyphrase
-     * and returns an iterator to the first matching order.
+     * and returns an iterator to the first matching order. If no order matches, end() is returned.
      *
      * @param keyphrase The keyphrase to search for.
      * @return std::list<Order>::iterator An iterator to the found order, or end() if not found.
@@ -72,9 +73,8 @@ public:
 
     /**
      * @brief Export the list of orders to a file.
-     *
-     * This method writes the descriptions of all orders in the list to a file.
-     * Each order is simply written on a separate line.
+     * This method writes the descriptions of all orders in the list to a file, with each order
+     * description being sanitized and written on a separate line to ensure proper formatting.
      *
      * @param filename The name of the file to write orders to.
      */
@@ -82,9 +82,8 @@ public:
 
     /**
      * @brief Import a list of orders from a file.
-     *
-     * This method reads the descriptions of orders from a file and adds them to the list.
-     * Each line in the file is treated as a separate order.
+     * This method reads descriptions of orders from a file, desanitizing each line as necessary,
+     * and adds them to the list as individual orders.
      *
      * @param filename The name of the file to read orders from.
      * @throws std::invalid_argument If the file cannot be opened.

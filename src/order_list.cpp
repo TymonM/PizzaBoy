@@ -37,9 +37,23 @@ std::list<Order>::iterator OrderList::find(const std::string &keyphrase) {
 
 void OrderList::exportOrders(const std::string &filename) const {
     std::ofstream file(filename);
-    // todo: make this format better, sanitize input
+    // todo: make an OrderListParser
     for (const auto& order : orders) {
-        file << order.getDescription() << std::endl;
+        // replace '\\' with "\\" and '\n' with "\n"
+        std::string sanitized{};
+        for (const auto& c : order.getDescription()) {
+            switch (c) {
+                case '\\':
+                    sanitized += "\\\\";
+                    break;
+                case '\n':
+                    sanitized += "\\n";
+                    break;
+                default:
+                    sanitized += c;
+            }
+        }
+        file << sanitized << std::endl;
     }
 }
 
@@ -50,6 +64,23 @@ void OrderList::importOrders(const std::string &filename) {
     }
     std::string line;
     while (std::getline(file, line)) {
-        pushOrder(Order(line));
+        // Undo the escaping done in exportOrders
+        std::string desanitized{};
+        for (size_t i = 0; i < line.size(); ++i) {
+            if (line[i] == '\\' && i + 1 < line.size()) {
+                if (line[i + 1] == '\\') {
+                    desanitized += '\\';
+                    ++i;
+                } else if (line[i + 1] == 'n') {
+                    desanitized += '\n';
+                    ++i;
+                } else {
+                    desanitized += line[i];
+                }
+            } else {
+                desanitized += line[i];
+            }
+        }
+        pushOrder(Order(desanitized));
     }
 }

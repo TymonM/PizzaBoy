@@ -65,11 +65,29 @@ void import_nonexistent_file() {
     ASSERT_THROWS(list.importOrders("nonexistent_file.txt"), std::invalid_argument);
 }
 
+void sanitize_export() {
+    {
+        OrderList writeList{};
+        writeList.pushOrder(Order("One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\\"\\"));
+        writeList.pushOrder(Order("Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave."));
+        writeList.exportOrders("test_sanitize_export.txt");
+    } // writeList goes out of scope and is destroyed
+    OrderList readList("test_sanitize_export.txt");
+    ASSERT(readList.size() == 2);
+    auto it = readList.getOrders().begin();
+    ASSERT(it++->getDescription() == "One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\\"\\");
+    ASSERT(it++->getDescription() == "Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave.");
+
+    // remove the file
+    std::remove("test_sanitize_export.txt");
+}
+
 int main() {
     export_list();
     import_list();
     import_constructor();
     import_nonexistent_file();
+    sanitize_export();
 
     return 0;
 }
