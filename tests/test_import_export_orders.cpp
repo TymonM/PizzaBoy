@@ -5,10 +5,10 @@
 
 #include <fstream>
 
+OrderList buildSampleList();
+
 void export_list() {
-    OrderList list{};
-    list.pushOrder(Order("One pepperoni pizza for Mike, delivered to 1 Elm Ave."));
-    list.pushOrder(Order("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave."));
+    OrderList list = buildSampleList();
 
     list.exportOrders("test_export_orders.txt");
 
@@ -17,9 +17,9 @@ void export_list() {
     ASSERT(file.is_open());
     std::string line;
     std::getline(file, line);
-    ASSERT(line == "One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
+    ASSERT(line == "For Mike, delivered to 1 Elm Ave.");
     std::getline(file, line);
-    ASSERT(line == "Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+    ASSERT(line == "For Alice, delivered to 3 Arch Ave.");
 
     // remove the file
     std::remove("test_export_orders.txt");
@@ -27,17 +27,15 @@ void export_list() {
 
 void import_list() {
     {
-        OrderList writeList{};
-        writeList.pushOrder(Order("One pepperoni pizza for Mike, delivered to 1 Elm Ave."));
-        writeList.pushOrder(Order("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave."));
+        OrderList writeList = buildSampleList();
         writeList.exportOrders("test_import_orders.txt");
     } // writeList goes out of scope and is destroyed
     OrderList readList{};
     readList.importOrders("test_import_orders.txt");
     ASSERT(readList.size() == 2);
     auto it = readList.getOrders().begin();
-    ASSERT(it++->getDescription() == "One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
-    ASSERT(it++->getDescription() == "Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+    ASSERT(it++->getDescription() == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(it++->getDescription() == "For Alice, delivered to 3 Arch Ave.");
 
     // remove the file
     std::remove("test_import_orders.txt");
@@ -45,16 +43,14 @@ void import_list() {
 
 void import_constructor() {
     {
-        OrderList writeList{};
-        writeList.pushOrder(Order("One pepperoni pizza for Mike, delivered to 1 Elm Ave."));
-        writeList.pushOrder(Order("Two pepperoni pizzas for Alice, delivered to 3 Arch Ave."));
+        OrderList writeList = buildSampleList();
         writeList.exportOrders("test_import_constructor.txt");
     } // writeList goes out of scope and is destroyed
     OrderList readList("test_import_constructor.txt");
     ASSERT(readList.size() == 2);
     auto it = readList.getOrders().begin();
-    ASSERT(it++->getDescription() == "One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
-    ASSERT(it++->getDescription() == "Two pepperoni pizzas for Alice, delivered to 3 Arch Ave.");
+    ASSERT(it++->getDescription() == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(it++->getDescription() == "For Alice, delivered to 3 Arch Ave.");
 
     // remove the file
     std::remove("test_import_constructor.txt");
@@ -68,14 +64,23 @@ void import_nonexistent_file() {
 void sanitize_export() {
     {
         OrderList writeList{};
-        writeList.pushOrder(Order("One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\\"\\"));
-        writeList.pushOrder(Order("Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave."));
+
+        Order mikeOrder("One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\"\\");
+        Order aliceOrder("Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave.");
+
+        MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
+        mikeOrder.addItem(pepperoni);
+        aliceOrder.addItem(pepperoni);
+        aliceOrder.addItem(pepperoni);
+
+        writeList.pushOrder(mikeOrder);
+        writeList.pushOrder(aliceOrder);
         writeList.exportOrders("test_sanitize_export.txt");
     } // writeList goes out of scope and is destroyed
     OrderList readList("test_sanitize_export.txt");
     ASSERT(readList.size() == 2);
     auto it = readList.getOrders().begin();
-    ASSERT(it++->getDescription() == "One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\\\"\\");
+    ASSERT(it++->getDescription() == "One peppero\\ni pizza for Mike,\ndelivered to \\1 Elm Ave.\"\\");
     ASSERT(it++->getDescription() == "Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave.");
 
     // remove the file
@@ -90,4 +95,21 @@ int main() {
     sanitize_export();
 
     return 0;
+}
+
+OrderList buildSampleList() {
+    OrderList list{};
+    Order mikeOrder("For Mike, delivered to 1 Elm Ave.");
+    Order aliceOrder("For Alice, delivered to 3 Arch Ave.");
+
+    MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
+
+    mikeOrder.addItem(pepperoni);
+    aliceOrder.addItem(pepperoni);
+    aliceOrder.addItem(pepperoni);
+
+    list.pushOrder(mikeOrder);
+    list.pushOrder(aliceOrder);
+
+    return list;
 }

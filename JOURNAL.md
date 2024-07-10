@@ -8,6 +8,8 @@
   - [A better `OrderList`](#a-better-orderlist)
   - [Documentation](#documentation)
   - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
+  - [Better export](#better-export)
+  - [`MenuItem`s](#menuitems)
 
 # Journal
 ### Project Setup

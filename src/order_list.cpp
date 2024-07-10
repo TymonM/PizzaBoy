@@ -5,6 +5,9 @@
 
 OrderList::OrderList() = default;
 void OrderList::pushOrder(const Order &order) {
+    if (order.getItems().empty()) {
+        throw std::invalid_argument("Order must contain at least one item");
+    }
     orders.push_back(order);
 }
 
@@ -38,6 +41,7 @@ std::list<Order>::iterator OrderList::find(const std::string &keyphrase) {
 void OrderList::exportOrders(const std::string &filename) const {
     std::ofstream file(filename);
     // todo: make an OrderListParser
+    // todo: export the items as well, not just the description
     for (const auto& order : orders) {
         // replace '\\' with "\\" and '\n' with "\n"
         std::string sanitized{};
@@ -81,6 +85,11 @@ void OrderList::importOrders(const std::string &filename) {
                 desanitized += line[i];
             }
         }
-        pushOrder(Order(desanitized));
+        // Just always add a pepperoni pizza for now
+        //  todo: actually read the items from the file
+        Order order(desanitized);
+        order.addItem(MenuItem("Classic Pepperoni Pizza", 10.0));
+
+        pushOrder(order);
     }
 }
