@@ -1,7 +1,7 @@
 #ifndef DTS_91896_ORDER_H
 #define DTS_91896_ORDER_H
 
-#include "menu_item.h"
+#include "order_item.h"
 
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@
 class Order {
 private:
     std::string description; ///< The general description of the order.
-    std::vector<MenuItem> items; ///< The specific items included in the order.
+    std::vector<OrderItem> items; ///< The specific items included in the order.
 
 public:
     /**
@@ -24,7 +24,7 @@ public:
      *
      * @param description The general description of the order.
      */
-    Order(const std::string &description);
+    Order(const std::string& description);
 
     /**
      * @brief Get the general description of the order.
@@ -38,7 +38,7 @@ public:
      *
      * @return const std::vector<MenuItem>& The items included in the order.
      */
-    const std::vector<MenuItem>& getItems() const;
+    const std::vector<OrderItem>& getItems() const;
 
     /**
      * @brief Calculate the total price of the order.
@@ -58,7 +58,7 @@ public:
      *
      * @param item The menu item to add to the order.
      */
-    void addItem(const MenuItem& item);
+    void addItem(const OrderItem& item);
 };
 
 #endif //DTS_91896_ORDER_H

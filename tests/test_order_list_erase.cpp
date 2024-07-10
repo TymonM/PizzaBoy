@@ -11,7 +11,7 @@ void TEST_erase_order() {
     list.erase(list.find("Mike"));
     ASSERT(list.size() == 1);
     ASSERT(list.getOrders().begin()->getDescription() == "For Alice, delivered to 3 Arch Ave."
-        && list.getOrders().begin()->getItems().begin()->getName() == "Classic Pepperoni Pizza");
+        && list.getOrders().begin()->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
 }
 
 void TEST_doesnt_exist() {
@@ -33,9 +33,8 @@ OrderList buildSampleList() {
 
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
 
-    mikeOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
 
     list.pushOrder(mikeOrder);
     list.pushOrder(aliceOrder);

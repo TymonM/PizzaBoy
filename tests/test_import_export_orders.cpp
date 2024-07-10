@@ -69,9 +69,8 @@ void TEST_sanitize_export() {
         Order aliceOrder("Two pepperoni \n\npizzas for \"Alice\", delivered to 3 Arch Ave.");
 
         MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
-        mikeOrder.addItem(pepperoni);
-        aliceOrder.addItem(pepperoni);
-        aliceOrder.addItem(pepperoni);
+        mikeOrder.addItem(OrderItem(pepperoni,1));
+        aliceOrder.addItem(OrderItem(pepperoni,2));
 
         writeList.pushOrder(mikeOrder);
         writeList.pushOrder(aliceOrder);
@@ -104,9 +103,8 @@ OrderList buildSampleList() {
 
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
 
-    mikeOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
 
     list.pushOrder(mikeOrder);
     list.pushOrder(aliceOrder);

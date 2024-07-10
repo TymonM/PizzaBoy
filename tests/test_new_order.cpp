@@ -16,25 +16,25 @@ void TEST_add_menu_items() {
     MenuItem margherita("Margherita Pizza", 9.0);
     MenuItem hawaiian("Hawaiian Pizza", 12.0);
 
-    mikeOrder.addItem(pepperoni);
-    mikeOrder.addItem(margherita);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    mikeOrder.addItem(OrderItem(margherita, 1));
 
-    aliceOrder.addItem(pepperoni);
-    aliceOrder.addItem(hawaiian);
+    aliceOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(hawaiian, 1));
 
     auto mikeItems = mikeOrder.getItems();
     auto it = mikeItems.begin();
-    ASSERT(it->getName() == "Classic Pepperoni Pizza"
-        && it++->getPrice() == 10.0);
-    ASSERT(it->getName() == "Margherita Pizza"
-        && it++->getPrice() == 9.0);
+    ASSERT(it->getItem().getName() == "Classic Pepperoni Pizza"
+        && it++->getItem().getPrice() == 10.0);
+    ASSERT(it->getItem().getName() == "Margherita Pizza"
+        && it++->getItem().getPrice() == 9.0);
 
     auto aliceItems = aliceOrder.getItems();
     it = aliceItems.begin();
-    ASSERT(it->getName() == "Classic Pepperoni Pizza"
-        && it++->getPrice() == 10.0);
-    ASSERT(it->getName() == "Hawaiian Pizza"
-        && it++->getPrice() == 12.0);
+    ASSERT(it->getItem().getName() == "Classic Pepperoni Pizza"
+        && it++->getItem().getPrice() == 10.0);
+    ASSERT(it->getItem().getName() == "Hawaiian Pizza"
+        && it++->getItem().getPrice() == 12.0);
 }
 
 int main() {

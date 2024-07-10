@@ -85,10 +85,10 @@ void OrderList::importOrders(const std::string &filename) {
                 desanitized += line[i];
             }
         }
-        // Just always add a pepperoni pizza for now
+        // Just always add a single pepperoni pizza for now
         //  todo: actually read the items from the file
         Order order(desanitized);
-        order.addItem(MenuItem("Classic Pepperoni Pizza", 10.0));
+        order.addItem(OrderItem(MenuItem("Classic Pepperoni Pizza", 10.0), 1));
 
         pushOrder(order);
     }

@@ -1,25 +1,23 @@
 #include "order.h"
 
-Order::Order(const std::string &description) {
-    this->description = description;
-}
+Order::Order(const std::string &description) : description(description) {}
 
 const std::string &Order::getDescription() const {
     return description;
 }
 
-const std::vector<MenuItem> &Order::getItems() const {
+const std::vector<OrderItem> &Order::getItems() const {
     return items;
 }
 
 double Order::calculateTotalPrice() const {
     double total = 0;
     for (const auto &item : items) {
-        total += item.getPrice();
+        total += item.calculatePrice();
     }
     return total;
 }
 
-void Order::addItem(const MenuItem &item) {
+void Order::addItem(const OrderItem& item) {
     items.push_back(item);
 }

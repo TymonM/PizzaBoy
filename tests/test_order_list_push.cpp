@@ -10,17 +10,17 @@ void TEST_push_orders() {
     Order aliceOrder("For Alice");
 
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
-    mikeOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
 
     list.pushOrder(mikeOrder);
     list.pushOrder(aliceOrder);
     ASSERT(list.size() == 2);
     auto it = list.getOrders().begin();
     ASSERT(it->getDescription() == "For Mike"
-        && it++->getItems().begin()->getName() == "Classic Pepperoni Pizza");
+        && it++->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getDescription() == "For Alice"
-        && it++->getItems().begin()->getName() == "Classic Pepperoni Pizza");
+        && it++->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
 }
 
 void TEST_push_empty_order() {

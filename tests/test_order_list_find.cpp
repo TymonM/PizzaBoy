@@ -31,9 +31,8 @@ OrderList buildSampleList() {
 
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
 
-    mikeOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
-    aliceOrder.addItem(pepperoni);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
 
     list.pushOrder(mikeOrder);
     list.pushOrder(aliceOrder);

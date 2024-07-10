@@ -11,6 +11,7 @@
   - [Better export](#better-export)
   - [`MenuItem`s](#menuitems)
   - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
+  - [`OrderItem`s](#orderitems)
 
 # Journal
 ### Project Setup
@@ -119,5 +120,21 @@ double Order::calculateTotalPrice() const {
         total += item.getPrice();
     }
     return total;
+}
+```
+
+### `OrderItem`s
+I realised that `MenuItem`s are not very useful on their own, since they don't have a quantity. Also, maybe a particular item will have extra requests, such as "no olives" or something. I added an `OrderItem` class, which is a `MenuItem` with a quantity (and in future will also hold special notes / requirements). This is a pretty big non-backwards-compatible change and required rewriting all my tests to support this new structure.
+
+```cpp
+void TEST_higher_quantity() {
+    Order order("For Mike");
+    MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
+    MenuItem margherita("Margherita Pizza", 9.0);
+
+    order.addItem(OrderItem(pepperoni, 2));
+    order.addItem(OrderItem(margherita, 1));
+
+    ASSERT(order.calculateTotalPrice() == 29.0);
 }
 ```
