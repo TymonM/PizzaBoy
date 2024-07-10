@@ -5,21 +5,21 @@
 
 OrderList buildSampleList();
 
-void find_order() {
+void TEST_find_order() {
     OrderList list = buildSampleList();
     auto it = list.find("Mike");
     ASSERT(it == list.getOrders().begin());
 }
 
-void doesnt_exist() {
+void TEST_doesnt_exist() {
     OrderList list = buildSampleList();
     auto it = list.find("Bob");
     ASSERT(it == list.getOrders().end());
 }
 
 int main() {
-    find_order();
-    doesnt_exist();
+    TEST_find_order();
+    TEST_doesnt_exist();
 
     return 0;
 }

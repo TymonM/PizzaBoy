@@ -5,7 +5,7 @@
 
 OrderList buildSampleList();
 
-void erase_order() {
+void TEST_erase_order() {
     OrderList list = buildSampleList();
 
     list.erase(list.find("Mike"));
@@ -14,14 +14,14 @@ void erase_order() {
         && list.getOrders().begin()->getItems().begin()->getName() == "Classic Pepperoni Pizza");
 }
 
-void doesnt_exist() {
+void TEST_doesnt_exist() {
     OrderList list = buildSampleList();
     ASSERT_THROWS(list.erase(list.find("Bob")), std::invalid_argument);
 }
 
 int main() {
-    erase_order();
-    doesnt_exist();
+    TEST_erase_order();
+    TEST_doesnt_exist();
 
     return 0;
 }

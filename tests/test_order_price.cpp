@@ -2,7 +2,7 @@
 
 #include "../src/order.h"
 
-void calculate_total_price() {
+void TEST_calculate_total_price() {
     Order order("For Mike");
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
     MenuItem margherita("Margherita Pizza", 9.0);
@@ -14,5 +14,5 @@ void calculate_total_price() {
 }
 
 int main() {
-    calculate_total_price();
+    TEST_calculate_total_price();
 }

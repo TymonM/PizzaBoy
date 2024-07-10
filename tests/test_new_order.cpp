@@ -2,13 +2,13 @@
 
 #include "../src/order.h"
 
-void create_single_order() {
+void TEST_create_single_order() {
     Order order("One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
 
     ASSERT(order.getDescription() == "One pepperoni pizza for Mike, delivered to 1 Elm Ave.");
 }
 
-void add_menu_items() {
+void TEST_add_menu_items() {
     Order mikeOrder("For Mike");
     Order aliceOrder("For Alice");
 
@@ -38,8 +38,8 @@ void add_menu_items() {
 }
 
 int main() {
-    create_single_order();
-    add_menu_items();
+    TEST_create_single_order();
+    TEST_add_menu_items();
 
     return 0;
 }

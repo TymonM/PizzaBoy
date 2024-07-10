@@ -7,7 +7,7 @@
 
 OrderList buildSampleList();
 
-void export_list() {
+void TEST_export_list() {
     OrderList list = buildSampleList();
 
     list.exportOrders("test_export_orders.txt");
@@ -25,7 +25,7 @@ void export_list() {
     std::remove("test_export_orders.txt");
 }
 
-void import_list() {
+void TEST_import_list() {
     {
         OrderList writeList = buildSampleList();
         writeList.exportOrders("test_import_orders.txt");
@@ -41,7 +41,7 @@ void import_list() {
     std::remove("test_import_orders.txt");
 }
 
-void import_constructor() {
+void TEST_import_constructor() {
     {
         OrderList writeList = buildSampleList();
         writeList.exportOrders("test_import_constructor.txt");
@@ -56,12 +56,12 @@ void import_constructor() {
     std::remove("test_import_constructor.txt");
 }
 
-void import_nonexistent_file() {
+void TEST_import_nonexistent_file() {
     OrderList list{};
     ASSERT_THROWS(list.importOrders("nonexistent_file.txt"), std::invalid_argument);
 }
 
-void sanitize_export() {
+void TEST_sanitize_export() {
     {
         OrderList writeList{};
 
@@ -88,11 +88,11 @@ void sanitize_export() {
 }
 
 int main() {
-    export_list();
-    import_list();
-    import_constructor();
-    import_nonexistent_file();
-    sanitize_export();
+    TEST_export_list();
+    TEST_import_list();
+    TEST_import_constructor();
+    TEST_import_nonexistent_file();
+    TEST_sanitize_export();
 
     return 0;
 }

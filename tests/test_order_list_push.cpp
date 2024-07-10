@@ -3,7 +3,7 @@
 #include "../src/order.h"
 #include "../src/order_list.h"
 
-void push_orders() {
+void TEST_push_orders() {
     OrderList list{};
     ASSERT(list.size() == 0);
     Order mikeOrder("For Mike");
@@ -23,15 +23,15 @@ void push_orders() {
         && it++->getItems().begin()->getName() == "Classic Pepperoni Pizza");
 }
 
-void push_empty_order() {
+void TEST_push_empty_order() {
     OrderList list{};
     // Order must contain at least one item
     ASSERT_THROWS(list.pushOrder(Order("For Mike")), std::invalid_argument);
 }
 
 int main() {
-    push_orders();
-    push_empty_order();
+    TEST_push_orders();
+    TEST_push_empty_order();
 
     return 0;
 }
