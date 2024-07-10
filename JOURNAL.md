@@ -12,6 +12,7 @@
   - [`MenuItem`s](#menuitems)
   - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
   - [`OrderItem`s](#orderitems)
+  - [JSON export](#json-export)
 
 # Journal
 ### Project Setup
@@ -138,3 +139,8 @@ void TEST_higher_quantity() {
     ASSERT(order.calculateTotalPrice() == 29.0);
 }
 ```
+
+### JSON export
+If we want to be able to export these new, fancier orders, we need a better way to do it. Considering that an `OrderList` contains sub-objects `Order` which contain sub-objects `OrderItem` which contain sub-objects `MenuItem`, I decided to use JSON as the export format. I found a library called [nlohmann/json](https://github.com/nlohmann/json) which seems to suit my purpose really well.
+
+I'm gradually phasing out the old functionality and replacing it with this, starting with first the ability to export an individual `MenuItem` to JSON.
