@@ -14,7 +14,7 @@ target_link_libraries(test_order_list_erase DTS_91896_lib macros_lib)
 target_link_libraries(test_import_export_orders DTS_91896_lib macros_lib)
 
 add_test(NAME test_new_order COMMAND test_new_order)
-add_test(NAME test_order_price COMMAND test_calculate_price)
+add_test(NAME test_order_price COMMAND test_order_price)
 add_test(NAME test_order_list_push COMMAND test_order_list_push)
 add_test(NAME test_order_list_find COMMAND test_order_list_find)
 add_test(NAME test_order_list_erase COMMAND test_order_list_erase)
