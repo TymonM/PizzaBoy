@@ -10,6 +10,7 @@
   - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
   - [Better export](#better-export)
   - [`MenuItem`s](#menuitems)
+  - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
 
 # Journal
 ### Project Setup
@@ -107,3 +108,16 @@ Two pepperoni \n\npizzas for "Alice", delivered to 3 Arch Ave.
 
 ### `MenuItem`s
 I added a `MenuItem` class, which is a simple class that holds a name and a price. Orders now contain a list of `MenuItem`s, in addition to a description, such as "For Mike" (although I will remove the description later).
+
+### `Order`s can calculate their own price
+Finally, `Order` has the functionality to do something that isn't entirely trivial for a regular employee with a notepad: calculate the price of the order. This is done by summing the prices of all the `MenuItem`s in the order. This is tested in [tests/test_order_price.cpp](tests/test_order_price.cpp).
+
+```cpp
+double Order::calculateTotalPrice() const {
+    double total = 0;
+    for (const auto &item : items) {
+        total += item.getPrice();
+    }
+    return total;
+}
+```

@@ -41,6 +41,16 @@ public:
     const std::vector<MenuItem>& getItems() const;
 
     /**
+     * @brief Calculate the total price of the order.
+     *
+     * This method calculates the total price of the order by summing the prices of all the items
+     * included in the order.
+     *
+     * @return double The total price of the order.
+     */
+    double calculateTotalPrice() const;
+
+    /**
      * @brief Add a menu item to the order.
      *
      * This method allows for the dynamic addition of items to an order, facilitating
