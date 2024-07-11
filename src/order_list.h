@@ -14,6 +14,8 @@
  */
 class OrderList {
 private:
+    static const size_t EXPORT_INDENT = 2; ///< The number of spaces to indent when exporting JSON.
+
     std::list<Order> orders; ///< The list of orders.
 
 public:
@@ -29,7 +31,7 @@ public:
      *
      * @param filename The name of the file to read orders from.
      */
-    explicit OrderList(const std::string& filename);
+//    explicit OrderList(const std::string& filename);
 
     /**
      * @brief Add a new order to the list.
@@ -81,16 +83,6 @@ public:
      * @param filename The name of the file to write orders to.
      */
     void exportOrders(const std::string& filename) const;
-
-    /**
-     * @brief Import a list of orders from a file.
-     * This method reads descriptions of orders from a file, desanitizing each line as necessary,
-     * and adds them to the list as individual orders.
-     *
-     * @param filename The name of the file to read orders from.
-     * @throws std::invalid_argument If the file cannot be opened.
-     */
-    void importOrders(const std::string& filename);
 };
 
 #endif //DTS_91896_ORDER_LIST_H
