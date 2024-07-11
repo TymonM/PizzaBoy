@@ -40,9 +40,23 @@ void TEST_use_menu() {
     ASSERT(order.calculateTotalPrice() == 28.0);
 }
 
+void TEST_empty_name() {
+    Menu menu;
+    MenuItem nothing("", 10.0);
+    ASSERT_THROWS(menu.addItem(nothing), std::invalid_argument);
+}
+
+void TEST_negative_price() {
+    Menu menu;
+    MenuItem cheap_pepperoni("Classic Pepperoni Pizza", -10.0);
+    ASSERT_THROWS(menu.addItem(cheap_pepperoni), std::invalid_argument);
+}
+
 int main() {
     TEST_create_menu();
     TEST_use_menu();
+    TEST_empty_name();
+    TEST_negative_price();
 
     return 0;
 }

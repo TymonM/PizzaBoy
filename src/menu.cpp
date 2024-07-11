@@ -19,6 +19,13 @@ size_t Menu::size() const {
 }
 
 void Menu::addItem(const MenuItem &item) {
+    if (item.getName().empty()) {
+        throw std::invalid_argument("Item name cannot be empty");
+    }
+    if (item.getPrice() < 0) {
+        throw std::invalid_argument("Item price cannot be negative");
+    }
+
     items.push_back(item);
 }
 
