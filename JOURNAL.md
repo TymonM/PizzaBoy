@@ -143,4 +143,6 @@ void TEST_higher_quantity() {
 ### JSON export
 If we want to be able to export these new, fancier orders, we need a better way to do it. Considering that an `OrderList` contains sub-objects `Order` which contain sub-objects `OrderItem` which contain sub-objects `MenuItem`, I decided to use JSON as the export format. I found a library called [nlohmann/json](https://github.com/nlohmann/json) which seems to suit my purpose really well.
 
-I'm gradually phasing out the old functionality and replacing it with this, starting with first the ability to export an individual `MenuItem` to JSON.
+I'm gradually phasing out the old functionality and replacing it with this, starting with first the ability to export an individual `MenuItem` to JSON, then an `OrderItem`, which makes use of the just-implemented `MenuItem` export.
+
+The export functionality is getting complex enough now that I decided to make two classes, [MenuParser](src/menu_parser.h) and [OrderParser](src/order_parser.h), which are responsible for exporting and importing `MenuItem`s and `Order`s, respectively. This is tested in [tests/test_json_export.cpp](tests/test_json_export.cpp).

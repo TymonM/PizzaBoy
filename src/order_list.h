@@ -73,7 +73,8 @@ public:
     std::list<Order>::iterator find(const std::string& keyphrase);
 
     /**
-     * @brief Export the list of orders to a file.
+     * @brief **WILL SOON BE REMOVED, USE `OrderParser` INSTEAD**
+     * Export the list of orders to a file.
      * This method writes the descriptions of all orders in the list to a file, with each order
      * description being sanitized and written on a separate line to ensure proper formatting.
      *
