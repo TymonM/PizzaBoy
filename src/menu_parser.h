@@ -1,15 +1,16 @@
 #ifndef DTS_91896_MENU_PARSER_H
 #define DTS_91896_MENU_PARSER_H
 
-#include "menu_item.h"
+#include "menu.h"
 
 #include <nlohmann/json.hpp>
 
 /**
- * @brief The MenuParser class is responsible for converting MenuItem objects to and from a JSON format.
+ * @brief The MenuParser class is responsible for converting Menu and MenuItem objects to and from
+ * a JSON format.
  *
- * This class provides functionality to export MenuItem objects to a JSON representation and back,
- * allowing for easy serialization and deserialization of menu items.
+ * This class provides functionality to export Menu and MenuItem objects to a JSON representation
+ * and back, allowing for easy serialization and deserialization of menus.
  */
 class MenuParser {
 public:
@@ -26,6 +27,18 @@ public:
     static nlohmann::json exportMenuItem(const MenuItem &item);
 
     /**
+     * @brief Exports a Menu object to a JSON representation.
+     *
+     * This method takes a Menu object and converts it into a JSON array. Each element of the array
+     * is a JSON object representing an individual menu item within the list. This facilitates the
+     * serialization of multiple menu items at once, making the data suitable for storage or transmission.
+     *
+     * @param menu The Menu object to be exported.
+     * @return nlohmann::json A JSON representation of the Menu object.
+     */
+    static nlohmann::json exportMenu(const Menu &menu);
+
+    /**
      * @brief Imports a MenuItem object from a JSON representation.
      *
      * This method takes a JSON object representing a MenuItem and constructs a MenuItem object
@@ -35,6 +48,17 @@ public:
      * @return MenuItem The MenuItem object constructed from the JSON data.
      */
     static MenuItem importMenuItem(const nlohmann::json &j);
+
+    /**
+     * @brief Imports a Menu object from a JSON representation.
+     *
+     * This method takes a JSON array representing a list of menu items and constructs a Menu object
+     * from the data. Each element of the array should be a JSON object representing a menu item.
+     *
+     * @param j The JSON array representing the list of menu items.
+     * @return Menu The Menu object constructed from the JSON data.
+     */
+    static Menu importMenu(const nlohmann::json &j);
 };
 
 

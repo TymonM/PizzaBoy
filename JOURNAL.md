@@ -183,5 +183,31 @@ Now that we can export to JSON, we obviously need a way to import our `OrderList
 }
 ```
 
-### A Menu
+### A `Menu`
 Before I get into making a UI, I first wanted to make one more thing: a [Menu](src/menu.h). This is a list of `MenuItem`s, which can be searched with queries such as `"pepperoni"`, so that `Order`s can be built from pre-existing `MenuItem`s, with already defined names and costs. This is tested in [tests/test_menu.cpp](tests/test_menu.cpp).
+
+### Importing and exporting a `Menu`
+I added the functionality to import and export a `Menu` to and from a JSON file. This is basically the same as the way I export `OrderList`s. This is tested in [tests/test_import_export_menu.cpp](tests/test_import_export_menu.cpp). A `Menu` JSON file looks like this:
+
+```json
+{
+  "items": [
+    {
+      "name": "Classic Pepperoni Pizza",
+      "price": 10.0
+    },
+    {
+      "name": "Classic Margherita Pizza",
+      "price": 9.0
+    },
+    {
+      "name": "Hawaiian Pizza",
+      "price": 12.0
+    },
+    {
+      "name": "Veggie Pizza",
+      "price": 11.0
+    }
+  ]
+}
+```

@@ -1,18 +1,10 @@
 #include "macros.cpp"
 
-#include "../src/menu_parser.h"
 #include "../src/order_parser.h"
 
 #include <fstream>
 
 OrderList buildSampleList();
-
-void TEST_export_menu_item() {
-    MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
-    auto exported = MenuParser::exportMenuItem(pepperoni);
-    ASSERT(exported["name"] == "Classic Pepperoni Pizza");
-    ASSERT(exported["price"] == 10.0);
-}
 
 void TEST_export_order_item() {
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
@@ -189,7 +181,6 @@ Yum)");
 }
 
 int main() {
-    TEST_export_menu_item();
     TEST_export_order_item();
     TEST_export_whole_order();
     TEST_export_order_with_special_chars();
