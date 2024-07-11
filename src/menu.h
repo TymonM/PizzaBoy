@@ -7,7 +7,7 @@
 #include <vector>
 
 /**
- * @brief The Menu class represents a collection of menu items.
+ * @brief The Menu class represents a collection of predefined menu items.
  *
  * This class provides functionalities to manage a collection of MenuItem objects. It allows
  * adding and removing items from the menu, as well as importing and exporting the menu
