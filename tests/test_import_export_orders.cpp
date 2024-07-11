@@ -161,6 +161,33 @@ void TEST_import_order_list_constructor() {
     std::remove("test_import_orders_constructor.json");
 }
 
+void TEST_export_order_list_with_special_chars_to_file() {
+    {
+        OrderList writeList{};
+        MenuItem pepperoni(R"(Classic "Peppero\ni" Pizza
+Yum)", 10.0);
+        Order order(R"(One peppero\ni pizza for "Mike",
+delivered to \1 Elm Ave.\"\\)");
+        order.addItem(OrderItem(pepperoni, 1));
+        writeList.pushOrder(order);
+        writeList.exportOrders("test_export_orders_special_chars.json");
+    } // writeList goes out of scope and is destroyed
+
+    OrderList readList("test_export_orders_special_chars.json");
+    ASSERT(readList.size() == 1);
+    auto it = readList.getOrders().begin();
+    ASSERT(it->getDescription() == R"(One peppero\ni pizza for "Mike",
+delivered to \1 Elm Ave.\"\\)");
+    ASSERT(it->getItems().size() == 1);
+    ASSERT(it->getItems().begin()->getItem().getName() == R"(Classic "Peppero\ni" Pizza
+Yum)");
+    ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(it->getItems().begin()->getQuantity() == 1);
+
+    // remove the file
+    std::remove("test_export_orders_special_chars.json");
+}
+
 int main() {
     TEST_export_menu_item();
     TEST_export_order_item();
@@ -170,6 +197,7 @@ int main() {
     TEST_export_order_list_to_file();
     TEST_import_order_list();
     TEST_import_order_list_constructor();
+    TEST_export_order_list_with_special_chars_to_file();
 
     return 0;
 }
