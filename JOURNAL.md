@@ -13,6 +13,8 @@
   - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
   - [`OrderItem`s](#orderitems)
   - [JSON export](#json-export)
+  - [JSON import](#json-import)
+  - [A Menu](#a-menu)
 
 # Journal
 ### Project Setup
@@ -180,3 +182,6 @@ Now that we can export to JSON, we obviously need a way to import our `OrderList
   ]
 }
 ```
+
+### A Menu
+Before I get into making a UI, I first wanted to make one more thing: a [Menu](src/menu.h). This is a list of `MenuItem`s, which can be searched with queries such as `"pepperoni"`, so that `Order`s can be built from pre-existing `MenuItem`s, with already defined names and costs. This is tested in [tests/test_menu.cpp](tests/test_menu.cpp).

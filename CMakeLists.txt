@@ -16,6 +16,7 @@ add_library(DTS_91896_lib STATIC
         src/order_item.cpp
         src/menu_parser.cpp
         src/order_parser.cpp
+        src/menu.cpp
         )
 
 add_executable(main src/main.cpp)
