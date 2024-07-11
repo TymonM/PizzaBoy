@@ -19,6 +19,11 @@ size_t Menu::size() const {
 }
 
 void Menu::addItem(const MenuItem &item) {
+    if (std::find_if(items.begin(), items.end(), [&item](const MenuItem &i) {
+        return i.getName() == item.getName();
+    }) != items.end()) {
+        throw std::invalid_argument("Item with the same name already exists");
+    }
     if (item.getName().empty()) {
         throw std::invalid_argument("Item name cannot be empty");
     }
