@@ -3,6 +3,12 @@
 
 #include <string>
 
+/**
+ * @brief The MenuItem class represents an item on a menu.
+ *
+ * This class encapsulates the details of a menu item, including its name and price.
+ * It provides methods to retrieve the name and price of the menu item.
+ */
 class MenuItem {
 private:
     std::string name; ///< The name of the menu item.

@@ -31,7 +31,7 @@ public:
      *
      * @param filename The name of the file to read orders from.
      */
-//    explicit OrderList(const std::string& filename);
+    explicit OrderList(const std::string& filename);
 
     /**
      * @brief Add a new order to the list.
@@ -75,14 +75,24 @@ public:
     std::list<Order>::iterator find(const std::string& keyphrase);
 
     /**
-     * @brief **WILL SOON BE REMOVED, USE `OrderParser` INSTEAD**
-     * Export the list of orders to a file.
-     * This method writes the descriptions of all orders in the list to a file, with each order
-     * description being sanitized and written on a separate line to ensure proper formatting.
+     * @brief Export the list of orders to a file.
+     * This method exports the list of orders to a file in JSON format, using the OrderParser class.
+     * If the file cannot be opened for writing, a std::invalid_argument exception is thrown.
      *
-     * @param filename The name of the file to write orders to.
+     * @param filename The name of the file to write the orders to.
+     * @throws std::invalid_argument If the file cannot be opened for writing.
      */
     void exportOrders(const std::string& filename) const;
+
+    /**
+     * @brief Import a list of orders from a file.
+     * This method imports a list of orders from a file in JSON format, using the OrderParser class.
+     * If the file does not exist, or cannot be opened for reading, a std::invalid_argument exception is thrown.
+     *
+     * @param filename The name of the file to read the orders from.
+     * @throws std::invalid_argument If the file does not exist, or cannot be opened for reading.
+     */
+    void importOrders(const std::string& filename);
 };
 
 #endif //DTS_91896_ORDER_LIST_H

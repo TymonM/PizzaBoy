@@ -27,3 +27,25 @@ nlohmann::json OrderParser::exportOrderList(const OrderList &orderList) {
     }
     return j;
 }
+
+OrderItem OrderParser::importOrderItem(const nlohmann::json &j) {
+    MenuItem item = MenuParser::importMenuItem(j["item"]);
+    int quantity = j["quantity"];
+    return OrderItem(item, quantity);
+}
+
+Order OrderParser::importOrder(const nlohmann::json &j) {
+    Order order(j["description"]);
+    for (const auto &item : j["items"]) {
+        order.addItem(importOrderItem(item));
+    }
+    return order;
+}
+
+OrderList OrderParser::importOrderList(const nlohmann::json &j) {
+    OrderList list;
+    for (const auto &order : j["orders"]) {
+        list.pushOrder(importOrder(order));
+    }
+    return list;
+}

@@ -13,9 +13,9 @@ void OrderList::pushOrder(const Order &order) {
     orders.push_back(order);
 }
 
-//OrderList::OrderList(const std::string &filename) {
-//    importOrders(filename);
-//}
+OrderList::OrderList(const std::string &filename) {
+    importOrders(filename);
+}
 
 size_t OrderList::size() const {
     return orders.size();
@@ -46,4 +46,14 @@ void OrderList::exportOrders(const std::string &filename) const {
         throw std::invalid_argument("Could not open file for writing");
     }
     file << OrderParser::exportOrderList(*this).dump(EXPORT_INDENT);
+}
+
+void OrderList::importOrders(const std::string &filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw std::invalid_argument("Could not open file for reading");
+    }
+    nlohmann::json j;
+    file >> j;
+    *this = OrderParser::importOrderList(j);
 }

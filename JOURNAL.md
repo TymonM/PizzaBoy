@@ -146,3 +146,37 @@ If we want to be able to export these new, fancier orders, we need a better way 
 I'm gradually phasing out the old functionality and replacing it with this, starting with first the ability to export an individual `MenuItem` to JSON, then an `OrderItem`, which makes use of the just-implemented `MenuItem` export. Then the functionality to export an `Order` to JSON, which uses an array of the `OrderItem` exports, as well as exporting the `description` string. Finally, I export an array of such `Order`s as an `OrderList`.
 
 The export functionality is getting complex enough now that I decided to make two classes, [MenuParser](src/menu_parser.h) and [OrderParser](src/order_parser.h), which are responsible for exporting and importing `MenuItem`s and `Order`s, respectively. This is tested in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp), replacing the tests that used to be there (back when we did each order on its own line).
+
+### JSON import
+Now that we can export to JSON, we obviously need a way to import our `OrderList`s back. I added the functionality to do this, and also added a test for it in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp). An exported `OrderList` file looks something like this:
+
+```json
+{
+  "orders": [
+    {
+      "description": "For Mike, delivered to 1 Elm Ave.",
+      "items": [
+        {
+          "item": {
+            "name": "Classic Pepperoni Pizza",
+            "price": 10.0
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "description": "For Alice, delivered to 3 Arch Ave.",
+      "items": [
+        {
+          "item": {
+            "name": "Classic Pepperoni Pizza",
+            "price": 10.0
+          },
+          "quantity": 2
+        }
+      ]
+    }
+  ]
+}
+```

@@ -8,9 +8,8 @@
 /**
  * @brief The MenuParser class is responsible for converting MenuItem objects to and from a JSON format.
  *
- * Currently, this class provides functionality to export MenuItem objects to a JSON representation,
- * allowing for easy serialization of menu items. Future implementations will include importing capabilities
- * to construct MenuItem objects from JSON data.
+ * This class provides functionality to export MenuItem objects to a JSON representation and back,
+ * allowing for easy serialization and deserialization of menu items.
  */
 class MenuParser {
 public:
@@ -25,6 +24,17 @@ public:
      * @return nlohmann::json A JSON representation of the MenuItem object.
      */
     static nlohmann::json exportMenuItem(const MenuItem &item);
+
+    /**
+     * @brief Imports a MenuItem object from a JSON representation.
+     *
+     * This method takes a JSON object representing a MenuItem and constructs a MenuItem object
+     * from the data. The JSON object should contain the name and price of the menu item.
+     *
+     * @param j The JSON object representing the MenuItem.
+     * @return MenuItem The MenuItem object constructed from the JSON data.
+     */
+    static MenuItem importMenuItem(const nlohmann::json &j);
 };
 
 

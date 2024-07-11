@@ -112,6 +112,55 @@ void TEST_export_order_list_to_file() {
     std::remove("test_export_orders.json");
 }
 
+void TEST_import_order_list() {
+    {
+        OrderList writeList = buildSampleList();
+        writeList.exportOrders("test_import_orders.json");
+    } // writeList goes out of scope and is destroyed
+    OrderList readList{};
+    readList.importOrders("test_import_orders.json");
+    ASSERT(readList.size() == 2);
+    auto it = readList.getOrders().begin();
+    ASSERT(it->getDescription() == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(it->getItems().size() == 1);
+    ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
+    ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(it->getItems().begin()->getQuantity() == 1);
+    it++;
+    ASSERT(it->getDescription() == "For Alice, delivered to 3 Arch Ave.");
+    ASSERT(it->getItems().size() == 1);
+    ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
+    ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(it->getItems().begin()->getQuantity() == 2);
+
+    // remove the file
+    std::remove("test_import_orders.json");
+}
+
+void TEST_import_order_list_constructor() {
+    {
+        OrderList writeList = buildSampleList();
+        writeList.exportOrders("test_import_orders_constructor.json");
+    } // writeList goes out of scope and is destroyed
+    OrderList readList("test_import_orders_constructor.json");
+    ASSERT(readList.size() == 2);
+    auto it = readList.getOrders().begin();
+    ASSERT(it->getDescription() == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(it->getItems().size() == 1);
+    ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
+    ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(it->getItems().begin()->getQuantity() == 1);
+    it++;
+    ASSERT(it->getDescription() == "For Alice, delivered to 3 Arch Ave.");
+    ASSERT(it->getItems().size() == 1);
+    ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
+    ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(it->getItems().begin()->getQuantity() == 2);
+
+    // remove the file
+    std::remove("test_import_orders_constructor.json");
+}
+
 int main() {
     TEST_export_menu_item();
     TEST_export_order_item();
@@ -119,6 +168,8 @@ int main() {
     TEST_export_order_with_special_chars();
     TEST_export_order_list();
     TEST_export_order_list_to_file();
+    TEST_import_order_list();
+    TEST_import_order_list_constructor();
 
     return 0;
 }
