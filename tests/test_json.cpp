@@ -3,6 +3,10 @@
 #include "../src/menu_parser.h"
 #include "../src/order_parser.h"
 
+#include <fstream>
+
+OrderList buildSampleList();
+
 void TEST_export_menu_item() {
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
     auto exported = MenuParser::exportMenuItem(pepperoni);
@@ -51,11 +55,82 @@ void TEST_export_order_with_special_chars() {
     ASSERT(exported["items"][0]["quantity"] == 1);
 }
 
+void TEST_export_order_list() {
+    OrderList list = buildSampleList();
+    auto exported = OrderParser::exportOrderList(list);
+    ASSERT(exported["orders"].size() == 2);
+    ASSERT(exported["orders"][0]["description"] == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(exported["orders"][0]["items"].size() == 1);
+    ASSERT(exported["orders"][0]["items"][0]["item"]["name"] == "Classic Pepperoni Pizza");
+    ASSERT(exported["orders"][0]["items"][0]["item"]["price"] == 10.0);
+    ASSERT(exported["orders"][0]["items"][0]["quantity"] == 1);
+    ASSERT(exported["orders"][1]["description"] == "For Alice, delivered to 3 Arch Ave.");
+    ASSERT(exported["orders"][1]["items"].size() == 1);
+    ASSERT(exported["orders"][1]["items"][0]["item"]["name"] == "Classic Pepperoni Pizza");
+    ASSERT(exported["orders"][1]["items"][0]["item"]["price"] == 10.0);
+    ASSERT(exported["orders"][1]["items"][0]["quantity"] == 2);
+
+    std::ofstream writeFile("test_export_order_list.txt");
+    writeFile << exported.dump(2);
+    writeFile.close();
+
+    std::ifstream readFile("test_export_order_list.txt");
+    std::stringstream buffer;
+    buffer << readFile.rdbuf();
+    ASSERT(buffer.str() == R"({
+  "orders": [
+    {
+      "description": "For Mike, delivered to 1 Elm Ave.",
+      "items": [
+        {
+          "item": {
+            "name": "Classic Pepperoni Pizza",
+            "price": 10.0
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "description": "For Alice, delivered to 3 Arch Ave.",
+      "items": [
+        {
+          "item": {
+            "name": "Classic Pepperoni Pizza",
+            "price": 10.0
+          },
+          "quantity": 2
+        }
+      ]
+    }
+  ]
+})");
+
+    // remove the file
+    std::remove("test_export_order_list.txt");
+}
+
 int main() {
     TEST_export_menu_item();
     TEST_export_order_item();
     TEST_export_whole_order();
     TEST_export_order_with_special_chars();
+    TEST_export_order_list();
 
     return 0;
+}
+
+OrderList buildSampleList() {
+    OrderList list{};
+    Order mikeOrder("For Mike, delivered to 1 Elm Ave.");
+    Order aliceOrder("For Alice, delivered to 3 Arch Ave.");
+
+    MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
+
+    list.pushOrder(mikeOrder);
+    list.pushOrder(aliceOrder);
+
+    return list;
 }

@@ -18,3 +18,12 @@ nlohmann::json OrderParser::exportOrder(const Order &order) {
     }
     return j;
 }
+
+nlohmann::json OrderParser::exportOrderList(const OrderList &orderList) {
+    nlohmann::json j;
+    j["orders"] = nlohmann::json::array();
+    for (const auto &order : orderList.getOrders()) {
+        j["orders"].push_back(exportOrder(order));
+    }
+    return j;
+}
