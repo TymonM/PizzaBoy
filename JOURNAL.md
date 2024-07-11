@@ -4,7 +4,7 @@
   - [Project Setup](#project-setup)
   - [Simple tests](#simple-tests)
   - [Added a README](#added-a-readme)
-  - [Storing multiple orders](#storing-multiple-orders)
+  - [Storing multiple `Order`s](#storing-multiple-orders)
   - [A better `OrderList`](#a-better-orderlist)
   - [Documentation](#documentation)
   - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
@@ -15,6 +15,7 @@
   - [JSON export](#json-export)
   - [JSON import](#json-import)
   - [A Menu](#a-menu)
+  - [Importing and exporting a Menu](#importing-and-exporting-a-menu)
 
 # Journal
 ### Project Setup
@@ -22,8 +23,9 @@ I set up a git repository, and initialised a new [CMake](https://cmake.org) proj
 
 In the `src` directory, we will have all our files, from classes to `main.cpp` itself. The `tests` directory will contain unit tests for our classes, and will be run with [CTest](https://cmake.org/cmake/help/latest/manual/ctest.1.html).
 
-### Simple tests
 I ignore compiled CMake build files in the [.gitignore](.gitignore) file, since these are OS-specific.
+
+### Simple tests
 
 I then set up an *extremely* simple `Order` class, which literally just holds a description, and set up a super simple test in [tests/test_new_order.cpp](tests/test_new_order.cpp). In order to do this, I also set up some simple macros which will be useful for testing later on. These can be found at [tests/macros.cpp](tests/macros.cpp).
 
@@ -39,7 +41,7 @@ For now, [src/main.cpp](src/main.cpp) is just a 'hello world' program, since I w
 ### Added a README
 Added a [README.md](README.md) file, which contains a brief overview of the project, and instructions on how to build and run the project. I also added a [task.pdf](task.pdf) file, which contains the task requirements for the project.
 
-### Storing multiple orders
+### Storing multiple `Order`s
 Having a single order is great, but we need to be able to store multiple orders. I added a `OrderList` class, which is a simple wrapper around a `std::vector<Order>`. For now, it does nothing fancy. I also added a test for this class, which is in [tests/test_new_order.cpp](tests/test_new_order.cpp):
 ```cpp
 // tests/test_new_order.cpp
