@@ -8,3 +8,12 @@ nlohmann::json OrderParser::exportOrderItem(const OrderItem &item) {
     j["quantity"] = item.getQuantity();
     return j;
 }
+
+nlohmann::json OrderParser::exportOrder(const Order &order) {
+    nlohmann::json j;
+    j["items"] = nlohmann::json::array();
+    for (const auto &item : order.getItems()) {
+        j["items"].push_back(exportOrderItem(item));
+    }
+    return j;
+}
