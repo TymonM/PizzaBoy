@@ -1,6 +1,6 @@
 #include "macros.cpp"
 
-#include "../src/order.h"
+#include "core/order.h"
 
 void TEST_calculate_total_price() {
     Order order("For Mike");

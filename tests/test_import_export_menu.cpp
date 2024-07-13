@@ -1,6 +1,6 @@
 #include "macros.cpp"
 
-#include "../src/menu_parser.h"
+#include "core/menu_parser.h"
 
 #include <fstream>
 

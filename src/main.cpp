@@ -1,6 +1,8 @@
-#include <iostream>
+#include "ui/tui.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Tui tui{};
+    tui.start();
+
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "macros.cpp"
 
-#include "../src/order.h"
+#include "core/order.h"
 
 void TEST_create_single_order() {
     Order order("One pepperoni pizza for Mike, delivered to 1 Elm Ave.");

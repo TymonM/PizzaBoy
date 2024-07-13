@@ -1,7 +1,7 @@
 #include "macros.cpp"
 
-#include "../src/order.h"
-#include "../src/order_list.h"
+#include "core/order.h"
+#include "core/order_list.h"
 
 void TEST_push_orders() {
     OrderList list{};

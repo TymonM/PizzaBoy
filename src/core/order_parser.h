@@ -2,13 +2,13 @@
 #define DTS_91896_ORDER_PARSER_H
 
 #include "order_list.h"
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 /**
  * @brief The OrderParser class is responsible for converting Order and OrderList objects to and from a JSON format.
  *
  * This class provides functionality to export Order, OrderItem, and OrderList objects to a JSON representation
- * and back, facilitating the serialization and deserialization of order data for storage or transmission.
+ * and back, facilitating the serialization and deserialization of order images for storage or transmission.
  */
 class OrderParser {
 public:
@@ -41,7 +41,7 @@ public:
      *
      * This method takes an OrderList object and converts it into a JSON array. Each element of the array
      * is a JSON object representing an individual order within the list. This facilitates the serialization
-     * of multiple orders at once, making the data suitable for storage or transmission.
+     * of multiple orders at once, making the images suitable for storage or transmission.
      *
      * @param orderList The OrderList object to be exported.
      * @return nlohmann::json A JSON representation of the OrderList object.
@@ -52,32 +52,32 @@ public:
      * @brief Imports an OrderItem object from a JSON representation.
      *
      * This method takes a JSON object representing an OrderItem and constructs an OrderItem object
-     * from the data. The JSON object should contain the menu item details and quantity of the order item.
+     * from the images. The JSON object should contain the menu item details and quantity of the order item.
      *
      * @param j The JSON object representing the OrderItem.
-     * @return OrderItem The OrderItem object constructed from the JSON data.
+     * @return OrderItem The OrderItem object constructed from the JSON images.
      */
     static OrderItem importOrderItem(const nlohmann::json &j);
 
     /**
      * @brief Imports an Order object from a JSON representation.
      *
-     * This method takes a JSON object representing an Order and constructs an Order object from the data.
+     * This method takes a JSON object representing an Order and constructs an Order object from the images.
      * The JSON object should include the order's description and a list of its items, each represented as a JSON object.
      *
      * @param j The JSON object representing the Order.
-     * @return Order The Order object constructed from the JSON data.
+     * @return Order The Order object constructed from the JSON images.
      */
     static Order importOrder(const nlohmann::json &j);
 
     /**
      * @brief Imports an OrderList object from a JSON representation.
      *
-     * This method takes a JSON object representing an OrderList and constructs an OrderList object from the data.
+     * This method takes a JSON object representing an OrderList and constructs an OrderList object from the images.
      * The JSON object should contain an array of JSON objects, each representing an individual order within the list.
      *
      * @param j The JSON object representing the OrderList.
-     * @return OrderList The OrderList object constructed from the JSON data.
+     * @return OrderList The OrderList object constructed from the JSON images.
      */
     static OrderList importOrderList(const nlohmann::json &j);
 };

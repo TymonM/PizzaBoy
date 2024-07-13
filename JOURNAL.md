@@ -1,23 +1,27 @@
 # Contents
 - [Contents](#contents)
 - [Journal](#journal)
-  - [Project Setup](#project-setup)
-  - [Simple tests](#simple-tests)
-  - [Added a README](#added-a-readme)
-  - [Storing multiple `Order`s](#storing-multiple-orders)
-  - [A better `OrderList`](#a-better-orderlist)
-  - [Documentation](#documentation)
-  - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
-  - [Better export](#better-export)
-  - [`MenuItem`s](#menuitems)
-  - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
-  - [`OrderItem`s](#orderitems)
-  - [JSON export](#json-export)
-  - [JSON import](#json-import)
-  - [A Menu](#a-menu)
-  - [Importing and exporting a Menu](#importing-and-exporting-a-menu)
+  - [Core Functionality](#core-functionality)
+    - [Project Setup](#project-setup)
+    - [Simple tests](#simple-tests)
+    - [Added a README](#added-a-readme)
+    - [Storing multiple `Order`s](#storing-multiple-orders)
+    - [A better `OrderList`](#a-better-orderlist)
+    - [Documentation](#documentation)
+    - [Exporting `OrderList`s to a file (and import, too)](#exporting-orderlists-to-a-file-and-import-too)
+    - [Better export](#better-export)
+    - [`MenuItem`s](#menuitems)
+    - [`Order`s can calculate their own price](#orders-can-calculate-their-own-price)
+    - [`OrderItem`s](#orderitems)
+    - [JSON export](#json-export)
+    - [JSON import](#json-import)
+    - [A Menu](#a-menu)
+    - [Importing and exporting a Menu](#importing-and-exporting-a-menu)
+  - [UI](#ui)
+    - [Finally, a UI](#finally-a-ui)
 
 # Journal
+## Core Functionality
 ### Project Setup
 I set up a git repository, and initialised a new [CMake](https://cmake.org) project. I made two directories `src` and `tests`.
 
@@ -80,7 +84,7 @@ void doesnt_exist() {
 ```
 
 ### Documentation
-I added documentation to the [Order](src/order.h) and [OrderList](src/order_list.h) classes, using [Doxygen](https://www.doxygen.nl/index.html)-style comments. This allows my IDE to show me the documentation when I hover over a class or method, and will also allow me to generate documentation if I want to later on.
+I added documentation to the [Order](src/core/order.h) and [OrderList](src/core/order_list.h) classes, using [Doxygen](https://www.doxygen.nl/index.html)-style comments. This allows my IDE to show me the documentation when I hover over a class or method, and will also allow me to generate documentation if I want to later on.
 ```cpp
 /**
 * @brief Find the first order that matches a given keyphrase.
@@ -149,7 +153,7 @@ If we want to be able to export these new, fancier orders, we need a better way 
 
 I'm gradually phasing out the old functionality and replacing it with this, starting with first the ability to export an individual `MenuItem` to JSON, then an `OrderItem`, which makes use of the just-implemented `MenuItem` export. Then the functionality to export an `Order` to JSON, which uses an array of the `OrderItem` exports, as well as exporting the `description` string. Finally, I export an array of such `Order`s as an `OrderList`.
 
-The export functionality is getting complex enough now that I decided to make two classes, [MenuParser](src/menu_parser.h) and [OrderParser](src/order_parser.h), which are responsible for exporting and importing `MenuItem`s and `Order`s, respectively. This is tested in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp), replacing the tests that used to be there (back when we did each order on its own line).
+The export functionality is getting complex enough now that I decided to make two classes, [MenuParser](src/core/menu_parser.h) and [OrderParser](src/core/order_parser.h), which are responsible for exporting and importing `MenuItem`s and `Order`s, respectively. This is tested in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp), replacing the tests that used to be there (back when we did each order on its own line).
 
 ### JSON import
 Now that we can export to JSON, we obviously need a way to import our `OrderList`s back. I added the functionality to do this, and also added a test for it in [tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp). An exported `OrderList` file looks something like this:
@@ -186,7 +190,7 @@ Now that we can export to JSON, we obviously need a way to import our `OrderList
 ```
 
 ### A `Menu`
-Before I get into making a UI, I first wanted to make one more thing: a [Menu](src/menu.h). This is a list of `MenuItem`s, which can be searched with queries such as `"pepperoni"`, so that `Order`s can be built from pre-existing `MenuItem`s, with already defined names and costs. This is tested in [tests/test_menu.cpp](tests/test_menu.cpp).
+Before I get into making a UI, I first wanted to make one more thing: a [Menu](src/core/menu.h). This is a list of `MenuItem`s, which can be searched with queries such as `"pepperoni"`, so that `Order`s can be built from pre-existing `MenuItem`s, with already defined names and costs. This is tested in [tests/test_menu.cpp](tests/test_menu.cpp).
 
 ### Importing and exporting a `Menu`
 I added the functionality to import and export a `Menu` to and from a JSON file. This is basically the same as the way I export `OrderList`s. This is tested in [tests/test_import_export_menu.cpp](tests/test_import_export_menu.cpp). A `Menu` JSON file looks like this:
@@ -213,3 +217,10 @@ I added the functionality to import and export a `Menu` to and from a JSON file.
   ]
 }
 ```
+
+## UI
+### Finally, a UI
+All that functionality is great, but it's not very useful without an interface. I decided to go with a terminal-based user interface (TUI). I wanted something like [ncurses](https://https://en.wikipedia.org/wiki/Ncurses). I've decided to use [FTXUI](https://github.com/ArthurSonzogni/FTXUI), at least for now. It's a C++ library for building terminal interfaces. I added this as a submodule to my project, and set up a super simple 'Hello World' interface, to get a feeling for how it works.
+
+I refactored all the functionality I've been working on so far to a new directory [src/core](src/core), and added a new directory [src/ui](src/ui) for the user interface classes, which just contains a single `Tui` class for now. Here's what it looks like when it's run:
+![A hello world interface](images/journal/helloworld.png)

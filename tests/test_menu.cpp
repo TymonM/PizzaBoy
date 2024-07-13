@@ -1,7 +1,7 @@
 #include "macros.cpp"
 
-#include "../src/menu.h"
-#include "../src/order.h"
+#include "core/menu.h"
+#include "core/order.h"
 
 void TEST_create_menu() {
     Menu menu;
