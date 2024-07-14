@@ -8,14 +8,16 @@ Tui::Tui() = default;
 void Tui::start() {
     auto screen = ftxui::ScreenInteractive::Fullscreen();
 
-    ftxui::FlexboxConfig flexboxConfig;
-    flexboxConfig.justify_content = ftxui::FlexboxConfig::JustifyContent::SpaceAround;
-    flexboxConfig.align_content = ftxui::FlexboxConfig::AlignContent::Center;
-    auto window = ftxui::flexbox({
-        ftxui::text("Hello, World!") | ftxui::xflex | ftxui::center,
-        ftxui::text("Goodbye, World!") | ftxui::xflex | ftxui::center,
-    }, flexboxConfig) | ftxui::border;
-    auto renderer = ftxui::Renderer([&] { return window; });
+    auto left_renderer = ftxui::Renderer([&] {
+        return ftxui::paragraph("Hello, World!") | ftxui::hcenter | ftxui::vcenter;
+    });
 
-    screen.Loop(renderer);
+    auto right_renderer = ftxui::Renderer([&] {
+        return ftxui::paragraph("Goodbye, World!") | ftxui::hcenter | ftxui::vcenter;
+    });
+
+    int pos = ftxui::Terminal::Size().dimx / 2;
+    auto content_renderer = ftxui::ResizableSplitLeft(left_renderer, right_renderer, &pos) | ftxui::border;
+
+    screen.Loop(content_renderer);
 }

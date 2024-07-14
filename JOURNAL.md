@@ -19,6 +19,7 @@
     - [Importing and exporting a Menu](#importing-and-exporting-a-menu)
   - [UI](#ui)
     - [Finally, a UI](#finally-a-ui)
+    - [Trying it on Windows](#trying-it-on-windows)
 
 # Journal
 ## Core Functionality
@@ -224,3 +225,6 @@ All that functionality is great, but it's not very useful without an interface. 
 
 I refactored all the functionality I've been working on so far to a new directory [src/core](src/core), and added a new directory [src/ui](src/ui) for the user interface classes, which just contains a single `Tui` class for now. Here's what it looks like when it's run:
 ![A hello world interface](images/journal/helloworld.png)
+
+### Trying it on Windows
+I tried running the project on Windows, and I managed to get it to work just as well as on macOS, which I've been using thus far. I've also played around with adding some interactive features, to see if they work and to get a feel for them. They worked on Windows as well with no extra changes.
