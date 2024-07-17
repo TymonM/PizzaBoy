@@ -20,6 +20,7 @@
   - [UI](#ui)
     - [Finally, a UI](#finally-a-ui)
     - [Trying it on Windows](#trying-it-on-windows)
+    - [Rendering an `Order`](#rendering-an-order)
 
 # Journal
 ## Core Functionality
