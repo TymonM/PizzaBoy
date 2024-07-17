@@ -228,3 +228,9 @@ I refactored all the functionality I've been working on so far to a new director
 
 ### Trying it on Windows
 I tried running the project on Windows, and I managed to get it to work just as well as on macOS, which I've been using thus far. I've also played around with adding some interactive features, to see if they work and to get a feel for them. They worked on Windows as well with no extra changes.
+
+### Rendering an `Order`
+I think the first part of the UI I will create is the 'Kitchen' view. This will display all orders in the `OrderList`, and allow the employee to remove them once they're completed.
+
+I added an `OrderRenderer` class, which is responsible for generating a `Renderer` component for an `Order`. It looks like this: (note that the items are not actually rendered yet, just a placeholder for now)
+![img.png](images/journal/render_order.png)

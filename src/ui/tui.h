@@ -11,12 +11,19 @@
  */
 class Tui {
 private:
-    // Will have some stuff in future...
+    Order order;
 public:
     /**
      * @brief Construct a new Tui object.
      */
     Tui();
+
+    /**
+     * @brief Set the Order object to be displayed by the Tui.
+     *
+     * @param order The Order object to be displayed by the Tui.
+     */
+    void setOrder(const Order& order);
 
     /**
      * @brief Start the text-based user interface.
