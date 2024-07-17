@@ -3,6 +3,8 @@
 
 #include "core/order_list.h"
 
+#include <ftxui/component/screen_interactive.hpp>
+
 /**
  * @brief The Tui class is responsible for handling the text-based user interface.
  *
@@ -11,6 +13,7 @@
  */
 class Tui {
 private:
+    ftxui::ScreenInteractive* screen;
     Order order;
 public:
     /**
@@ -24,6 +27,11 @@ public:
      * @param order The Order object to be displayed by the Tui.
      */
     void setOrder(const Order& order);
+
+    /**
+     * @brief Update the screen, if there is one.
+     */
+    void postScreenUpdate();
 
     /**
      * @brief Start the text-based user interface.

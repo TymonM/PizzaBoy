@@ -14,6 +14,7 @@ FetchContent_Declare(ftxui
         GIT_TAG v5.0.0
         )
 FetchContent_MakeAvailable(ftxui)
+include_directories(${ftxui_SOURCE_DIR}/include)
 
 # Libraries and executable
 add_library(DTS_91896_core STATIC
