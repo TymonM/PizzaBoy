@@ -34,6 +34,8 @@ add_library(DTS_91896_utils STATIC
         src/utils/utils.cpp
         )
 target_link_libraries(DTS_91896_ui
+        PRIVATE DTS_91896_core
+        PRIVATE DTS_91896_utils
         PRIVATE ftxui::screen
         PRIVATE ftxui::dom
         PRIVATE ftxui::component
