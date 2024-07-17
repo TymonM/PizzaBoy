@@ -51,7 +51,10 @@ Order sampleMikeOrder() {
 Order sampleAliceOrder() {
     Order order("For Alice, delivered to 3 Arch Ave.");
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
+    MenuItem margherita("Margherita Pizza", 8.0);
+
     order.addItem(OrderItem(pepperoni, 2));
+    order.addItem(OrderItem(margherita, 1));
 
     return order;
 }

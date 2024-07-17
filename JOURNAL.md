@@ -21,6 +21,7 @@
     - [Finally, a UI](#finally-a-ui)
     - [Trying it on Windows](#trying-it-on-windows)
     - [Rendering an `Order`](#rendering-an-order)
+    - [Rendering the items](#rendering-the-items)
 
 # Journal
 ## Core Functionality
@@ -234,4 +235,8 @@ I tried running the project on Windows, and I managed to get it to work just as 
 I think the first part of the UI I will create is the 'Kitchen' view. This will display all orders in the `OrderList`, and allow the employee to remove them once they're completed.
 
 I added an `OrderRenderer` class, which is responsible for generating a `Renderer` component for an `Order`. It looks like this: (note that the items are not actually rendered yet, just a placeholder for now)
-![img.png](images/journal/render_order.png)
+![A simple order](images/journal/render_order.png)
+
+### Rendering the items
+I added a `OrderItemRenderer` class, which is responsible for rendering an `OrderItem`. This is used by the `OrderRenderer` to render all the items in an `Order`. This is what it looks like:
+![A simple order with the items also rendered](images/journal/render_order_items.png)

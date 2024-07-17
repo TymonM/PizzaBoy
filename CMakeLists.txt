@@ -28,6 +28,7 @@ add_library(DTS_91896_core STATIC
 add_library(DTS_91896_ui STATIC
         src/ui/tui.cpp
         src/ui/order_renderer.cpp
+        src/ui/order_item_renderer.cpp
         )
 target_link_libraries(DTS_91896_ui
         PRIVATE ftxui::screen
