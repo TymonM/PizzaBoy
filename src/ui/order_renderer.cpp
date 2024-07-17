@@ -1,6 +1,7 @@
 #include "order_renderer.h"
 
 #include "order_item_renderer.h"
+#include "utils/utils.h"
 
 ftxui::Component OrderRenderer::getRenderer(const Order& order) {
     return ftxui::Renderer([&] {
@@ -14,7 +15,10 @@ ftxui::Component OrderRenderer::getRenderer(const Order& order) {
             ftxui::separator(),
             ftxui::vbox(orderItems) | ftxui::flex,
             ftxui::separator(),
-            ftxui::text("Total: $" + std::to_string(order.calculateTotalPrice())),
+            ftxui::hbox({
+                ftxui::text("Total: ") | ftxui::flex,
+                ftxui::text(utils::formatPrice(order.calculateTotalPrice()))
+            })
         });
     }) | ftxui::border;
 }

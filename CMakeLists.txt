@@ -30,6 +30,9 @@ add_library(DTS_91896_ui STATIC
         src/ui/order_renderer.cpp
         src/ui/order_item_renderer.cpp
         )
+add_library(DTS_91896_utils STATIC
+        src/utils/utils.cpp
+        )
 target_link_libraries(DTS_91896_ui
         PRIVATE ftxui::screen
         PRIVATE ftxui::dom
@@ -41,6 +44,7 @@ add_executable(main src/main.cpp)
 target_link_libraries(main
         PRIVATE DTS_91896_core
         PRIVATE DTS_91896_ui
+        PRIVATE DTS_91896_utils
         )
 
 # Testing

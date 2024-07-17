@@ -22,6 +22,7 @@
     - [Trying it on Windows](#trying-it-on-windows)
     - [Rendering an `Order`](#rendering-an-order)
     - [Rendering the items](#rendering-the-items)
+    - [Formatting the prices nicely](#formatting-the-prices-nicely)
 
 # Journal
 ## Core Functionality
@@ -240,3 +241,6 @@ I added an `OrderRenderer` class, which is responsible for generating a `Rendere
 ### Rendering the items
 I added a `OrderItemRenderer` class, which is responsible for rendering an `OrderItem`. This is used by the `OrderRenderer` to render all the items in an `Order`. This is what it looks like:
 ![A simple order with the items also rendered](images/journal/render_order_items.png)
+
+### Formatting the prices nicely
+All those zeros after the decimal point are not very nice. I added a [src/utils/utils.h](src/utils/utils.h) file, which contains a `formatPrice` function, which formats a price to two decimal places. This is used in the `OrderItemRenderer` and `OrderRenderer` to format the prices nicely (as `$10.00`). I also tested it in [tests/test_utils.cpp](tests/test_utils.cpp).
