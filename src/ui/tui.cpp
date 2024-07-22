@@ -1,14 +1,13 @@
 #include "tui.h"
 
-#include "order_renderer.h"
+#include "order_list_renderer.h"
 
 #include <ftxui/component/screen_interactive.hpp>
 
-//Tui::Tui() = default;
-Tui::Tui() : order(Order("N/A")), screen(nullptr) {}
+Tui::Tui() = default;
 
-void Tui::setOrder(const Order& order) {
-    this->order = order;
+void Tui::setOrderList(std::shared_ptr<OrderList> orderList) {
+    this->orderList = orderList;
     postScreenUpdate();
 }
 
@@ -23,7 +22,7 @@ void Tui::start() {
     auto _screen = ftxui::ScreenInteractive::Fullscreen();
     this->screen = &_screen;
 
-    auto window_renderer = OrderRenderer::getRenderer(order);
+    auto window_renderer = OrderListRenderer::getRenderer(*orderList);
     _screen.Loop(window_renderer);
     this->screen = nullptr;
 }

@@ -244,3 +244,7 @@ I added a `OrderItemRenderer` class, which is responsible for rendering an `Orde
 
 ### Formatting the prices nicely
 All those zeros after the decimal point are not very nice. I added a [src/utils/utils.h](src/utils/utils.h) file, which contains a `formatPrice` function, which formats a price to two decimal places. This is used in the `OrderItemRenderer` and `OrderRenderer` to format the prices nicely (as `$10.00`). I also tested it in [tests/test_utils.cpp](tests/test_utils.cpp).
+
+### Rendering a whole list of `Order`s
+The kitchen should be able to see all the `Order`s that need to be prepared, and not just one at a time. I added an `OrderListRenderer` for this very purpose. The `Tui` now has a `std::shared_ptr<OrderList>` to the current `OrderList` (so that updates are immediately visible), and the `OrderListRenderer` is responsible for rendering this list. This is what it looks like:
+![A list of orders](images/journal/render_order_list.png)

@@ -13,8 +13,8 @@
  */
 class Tui {
 private:
-    ftxui::ScreenInteractive* screen;
-    Order order;
+    ftxui::ScreenInteractive* screen{};
+    std::shared_ptr<OrderList> orderList;
 public:
     /**
      * @brief Construct a new Tui object.
@@ -22,14 +22,17 @@ public:
     Tui();
 
     /**
-     * @brief Set the Order object to be displayed by the Tui.
+     * @brief Set the OrderList object to be displayed by the Tui.
+     * Since the OrderList object is passed as a std::shared_ptr, the Tui will automatically update
+     * when the OrderList changes, such as when orders are added or removed (at the next screen update).
      *
-     * @param order The Order object to be displayed by the Tui.
+     * @param orderList A shared_ptr to the OrderList object to be displayed by the Tui.
      */
-    void setOrder(const Order& order);
+    void setOrderList(std::shared_ptr<OrderList> orderList);
 
     /**
      * @brief Update the screen, if there is one.
+     * For multi-threading purposes, this function is used to update the screen from a different thread.
      */
     void postScreenUpdate();
 

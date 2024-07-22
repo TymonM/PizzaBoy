@@ -3,25 +3,29 @@
 #include <atomic>
 #include <thread>
 
-Order sampleMikeOrder();
-Order sampleAliceOrder();
+std::shared_ptr<OrderList> buildSampleList();
 
 int main() {
     Tui tui{};
 
-    Order mikeOrder = sampleMikeOrder();
-    Order aliceOrder = sampleAliceOrder();
+    auto list = buildSampleList();
 
-    tui.setOrder(mikeOrder);
+    tui.setOrderList(list);
 
-    // Every 5 seconds, swap which order is displayed
+    // Every 5 seconds, change the list
     std::atomic<bool> running = true;
     std::thread swapper([&] {
         while (running) {
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            tui.setOrder(aliceOrder);
+            Order bobOrder("For Bob, delivered to 5 Elm Ave.");
+            MenuItem cheese("Cheese Pizza", 8.0);
+            bobOrder.addItem(OrderItem(cheese, 1));
+            list->pushOrder(bobOrder);
+            tui.postScreenUpdate();
+
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            tui.setOrder(mikeOrder);
+            list->erase(list->find("Bob"));
+            tui.postScreenUpdate();
         }
     });
 
@@ -32,21 +36,20 @@ int main() {
     return 0;
 }
 
-Order sampleMikeOrder() {
-    Order order("For Mike, delivered to 1 Elm Ave.");
+std::shared_ptr<OrderList> buildSampleList() {
+    auto list = std::make_shared<OrderList>();
+    Order mikeOrder("For Mike, delivered to 1 Elm Ave.");
+    Order aliceOrder("For Alice, delivered to 3 Arch Ave.");
+
     MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
-    order.addItem(OrderItem(pepperoni, 1));
+    MenuItem hawaiian("Hawaiian Pizza", 12.0);
 
-    return order;
-}
+    mikeOrder.addItem(OrderItem(pepperoni, 1));
+    mikeOrder.addItem(OrderItem(hawaiian, 1));
+    aliceOrder.addItem(OrderItem(pepperoni, 2));
 
-Order sampleAliceOrder() {
-    Order order("For Alice, delivered to 3 Arch Ave.");
-    MenuItem pepperoni("Classic Pepperoni Pizza", 10.0);
-    MenuItem margherita("Margherita Pizza", 8.0);
+    list->pushOrder(mikeOrder);
+    list->pushOrder(aliceOrder);
 
-    order.addItem(OrderItem(pepperoni, 2));
-    order.addItem(OrderItem(margherita, 1));
-
-    return order;
+    return list;
 }
