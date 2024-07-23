@@ -112,7 +112,8 @@ void TEST_import_order_list() {
     OrderList readList{};
     readList.importOrders("test_import_orders.json");
     ASSERT(readList.size() == 2);
-    auto it = readList.getOrders().begin();
+    auto orders = readList.getOrders();
+    auto it = orders.begin();
     ASSERT(it->getDescription() == "For Mike, delivered to 1 Elm Ave.");
     ASSERT(it->getItems().size() == 1);
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
@@ -136,7 +137,8 @@ void TEST_import_order_list_constructor() {
     } // writeList goes out of scope and is destroyed
     OrderList readList("test_import_orders_constructor.json");
     ASSERT(readList.size() == 2);
-    auto it = readList.getOrders().begin();
+    auto orders = readList.getOrders();
+    auto it = orders.begin();
     ASSERT(it->getDescription() == "For Mike, delivered to 1 Elm Ave.");
     ASSERT(it->getItems().size() == 1);
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
@@ -167,7 +169,8 @@ delivered to \1 Elm Ave.\"\\)");
 
     OrderList readList("test_export_orders_special_chars.json");
     ASSERT(readList.size() == 1);
-    auto it = readList.getOrders().begin();
+    auto orders = readList.getOrders();
+    auto it = orders.begin();
     ASSERT(it->getDescription() == R"(One peppero\ni pizza for "Mike",
 delivered to \1 Elm Ave.\"\\)");
     ASSERT(it->getItems().size() == 1);

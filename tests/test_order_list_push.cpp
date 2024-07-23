@@ -16,7 +16,8 @@ void TEST_push_orders() {
     list.pushOrder(mikeOrder);
     list.pushOrder(aliceOrder);
     ASSERT(list.size() == 2);
-    auto it = list.getOrders().begin();
+    auto orders = list.getOrders();
+    auto it = orders.begin();
     ASSERT(it->getDescription() == "For Mike"
         && it++->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getDescription() == "For Alice"

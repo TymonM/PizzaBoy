@@ -19,7 +19,7 @@ nlohmann::json OrderParser::exportOrder(const Order &order) {
     return j;
 }
 
-nlohmann::json OrderParser::exportOrderList(const OrderList &orderList) {
+nlohmann::json OrderParser::exportOrderList(OrderList &orderList) {
     nlohmann::json j;
     j["orders"] = nlohmann::json::array();
     for (const auto &order : orderList.getOrders()) {
@@ -42,10 +42,9 @@ Order OrderParser::importOrder(const nlohmann::json &j) {
     return order;
 }
 
-OrderList OrderParser::importOrderList(const nlohmann::json &j) {
-    OrderList list;
+void OrderParser::importOrderList(OrderList& list, const nlohmann::json &j) {
+    list.clear();
     for (const auto &order : j["orders"]) {
         list.pushOrder(importOrder(order));
     }
-    return list;
 }

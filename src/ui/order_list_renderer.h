@@ -19,7 +19,7 @@ public:
      *
      * @return The renderable ftxui::Component for the OrderList object.
      */
-    static ftxui::Component getRenderer(const OrderList& orderList);
+    static ftxui::Component getRenderer(OrderList& orderList);
 };
 
 

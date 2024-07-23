@@ -1,7 +1,7 @@
 #ifndef DTS_91896_ORDER_RENDERER_H
 #define DTS_91896_ORDER_RENDERER_H
 
-#include "core/order.h"
+#include "core/order_list.h"
 
 #include <ftxui/component/component.hpp>
 
@@ -14,12 +14,14 @@ class OrderRenderer {
 public:
     /**
      * @brief Get a renderer for an Order object.
-     * Since the Order is passed by reference, the renderer will update automatically when the
-     * Order object changes.
+     * The Order is copied, so the renderer will NOT update automatically when the Order
+     * object changes. The OrderList is also passed by reference to allow for deletion of the order.
+     * The selected parameter is used to determine if the order is currently selected, if so, it is
+     * rendered differently.
      *
      * @return The renderable ftxui::Component for the Order object.
      */
-    static ftxui::Component getRenderer(const Order& order);
+    static ftxui::Component getRenderer(const Order& order, OrderList& orderList, bool selected);
 };
 
 

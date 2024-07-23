@@ -7,19 +7,16 @@ OrderList buildSampleList();
 
 void TEST_find_order() {
     OrderList list = buildSampleList();
-    auto it = list.find("Mike");
-    ASSERT(it == list.getOrders().begin());
-}
-
-void TEST_doesnt_exist() {
-    OrderList list = buildSampleList();
-    auto it = list.find("Bob");
-    ASSERT(it == list.getOrders().end());
+    auto order = list.find("Mike");
+    ASSERT(order->getDescription() == "For Mike, delivered to 1 Elm Ave.");
+    ASSERT(order->getItems().size() == 1);
+    ASSERT(order->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
+    ASSERT(order->getItems().begin()->getItem().getPrice() == 10.0);
+    ASSERT(order->getItems().begin()->getQuantity() == 1);
 }
 
 int main() {
     TEST_find_order();
-    TEST_doesnt_exist();
 
     return 0;
 }

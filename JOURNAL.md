@@ -23,6 +23,8 @@
     - [Rendering an `Order`](#rendering-an-order)
     - [Rendering the items](#rendering-the-items)
     - [Formatting the prices nicely](#formatting-the-prices-nicely)
+    - [Rendering a whole list of `Order`s](#rendering-a-whole-list-of-orders)
+    - [Buttons to delete `Order`s + thread safety](#buttons-to-delete-orders--thread-safety)
 
 # Journal
 ## Core Functionality
@@ -248,3 +250,14 @@ All those zeros after the decimal point are not very nice. I added a [src/utils/
 ### Rendering a whole list of `Order`s
 The kitchen should be able to see all the `Order`s that need to be prepared, and not just one at a time. I added an `OrderListRenderer` for this very purpose. The `Tui` now has a `std::shared_ptr<OrderList>` to the current `OrderList` (so that updates are immediately visible), and the `OrderListRenderer` is responsible for rendering this list. This is what it looks like:
 ![A list of orders](images/journal/render_order_list.png)
+
+### Buttons to delete `Order`s + thread safety
+I added a button to each `Order` in the `OrderListRenderer`, which allows the employee to delete the `Order` once it's been completed. This is done by calling the `erase` method on the `OrderList`, and the renderer is then automatically updated next frame since it has a shared pointer to the `OrderList`.
+
+Since the `OrderList` is being modified by the UI thread and the main thread (which is running the TUI), I had to make sure that the `OrderList` is thread-safe. I did this by adding a `std::mutex` to the `OrderList` class, and locking it whenever the list is being read or modified, using something like so:
+```cpp
+void OrderList::clear() {
+    std::scoped_lock lock(mutex);
+    orders.clear();
+}
+```
