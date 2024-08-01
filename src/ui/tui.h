@@ -13,7 +13,7 @@
  */
 class Tui {
 private:
-    ftxui::ScreenInteractive* screen{};
+    ftxui::ScreenInteractive* screen{}; ///< The current screen object for the TUI.
 public:
     /**
      * @brief Construct a new Tui object.
