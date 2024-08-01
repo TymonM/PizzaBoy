@@ -19,6 +19,7 @@ ftxui::Component KitchenUi::renderOrder(const Order &order, bool orderSelected) 
     auto deleteButton = ftxui::Button("Delete", [order, this] {
         orderList->erase(orderList->find(order.getDescription()));
         orderList->exportOrders(filepath);
+        *selected = std::max(0, *selected - 1);
     }, ftxui::ButtonOption::Ascii());
     if (orderSelected) {
         deleteButton |= ftxui::bgcolor(SELECTED_COLOR);
