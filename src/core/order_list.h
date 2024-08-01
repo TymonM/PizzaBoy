@@ -37,6 +37,7 @@ public:
 
     /**
      * @brief Copy constructor.
+     * Copies the orders of the other OrderList object, but keeps the local mutex.
      *
      * @param other The OrderList object to copy.
      */
@@ -48,13 +49,14 @@ public:
     void clear();
 
     /**
-     * @brief Adds a new order to the list.
+     * @brief Adds a new order to the list, assigning it a unique ID.
+     * The generated id is the lowest id (starting from 0) which doesn't already exist in the list.
      * Throws std::invalid_argument if the order contains no items.
      *
      * @param order The order to add.
      * @throws std::invalid_argument If the order is empty.
      */
-    void pushOrder(const Order& order);
+    void pushOrder(Order& order);
 
     /**
      * @brief Returns the number of orders in the list.

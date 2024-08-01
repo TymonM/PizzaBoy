@@ -15,6 +15,7 @@
  */
 class Order {
 private:
+    size_t id = 0; ///< The unique identifier of the order.
     std::string description; ///< The general description of the order.
     std::vector<OrderItem> items; ///< The specific items included in the order.
 
@@ -25,6 +26,20 @@ public:
      * @param description The general description of the order.
      */
     Order(const std::string& description);
+
+    /**
+     * @brief Get the unique identifier of the order.
+     *
+     * @return size_t The unique identifier of the order.
+     */
+    size_t getId() const;
+
+    /**
+     * @brief Set the unique identifier of the order.
+     *
+     * @param id The new unique identifier of the order.
+     */
+    void setId(size_t id);
 
     /**
      * @brief Get the general description of the order.
@@ -51,12 +66,12 @@ public:
     double calculateTotalPrice() const;
 
     /**
-     * @brief Add a menu item to the order.
+     * @brief Add a order item to the order.
      *
      * This method allows for the dynamic addition of items to an order, facilitating
      * the customization of orders according to customer preferences.
      *
-     * @param item The menu item to add to the order.
+     * @param item The order item to add to the order.
      */
     void addItem(const OrderItem& item);
 };

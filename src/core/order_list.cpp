@@ -21,13 +21,24 @@ OrderList::OrderList(const OrderList &other) {
     orders = other.orders;
 }
 
-void OrderList::pushOrder(const Order &order) {
+void OrderList::pushOrder(Order &order) {
     if (order.getItems().empty()) {
         throw std::invalid_argument("Order must contain at least one item");
     }
 
+    // todo: hashmap
+    // generate an id for the order, lowest id which doesn't already exist
+    // insert it into the std::list sorted by id
+    // note: this will not prioritise the oldest orders, so some customers may be waiting indefinitely
     std::scoped_lock lock(mutex);
-    orders.push_back(order);
+    size_t id = 0;
+    auto it = orders.begin();
+    while (it != orders.end() && it->getId() == id) {
+        it++;
+        id++;
+    }
+    order.setId(id);
+    orders.insert(it, order);
 }
 
 size_t OrderList::size() {
