@@ -15,11 +15,12 @@ ftxui::Component KitchenUi::renderOrderItem(const OrderItem &orderItem) {
     });
 }
 
-ftxui::Component KitchenUi::renderOrder(const Order &order, OrderList &orderList, bool selected) {
-    auto deleteButton = ftxui::Button("Delete", [order, &orderList] {
-        orderList.erase(orderList.find(order.getDescription()));
+ftxui::Component KitchenUi::renderOrder(const Order &order, bool orderSelected) {
+    auto deleteButton = ftxui::Button("Delete", [order, this] {
+        orderList->erase(orderList->find(order.getDescription()));
+        orderList->exportOrders(filepath);
     }, ftxui::ButtonOption::Ascii());
-    if (selected) {
+    if (orderSelected) {
         deleteButton |= ftxui::bgcolor(SELECTED_COLOR);
     }
 
@@ -35,24 +36,24 @@ ftxui::Component KitchenUi::renderOrder(const Order &order, OrderList &orderList
            ftxui::vbox(orderItems) | ftxui::flex,
            ftxui::separator(),
            ftxui::hbox({
-                               ftxui::text("Total: ") | ftxui::flex,
-                               ftxui::text(utils::formatPrice(order.calculateTotalPrice()))
-                       }),
+               ftxui::text("Total: ") | ftxui::flex,
+               ftxui::text(utils::formatPrice(order.calculateTotalPrice()))
+           }),
            ftxui::separator(),
            deleteButton->Render(),
        }) | ftxui::border;
     });
 }
 
-ftxui::Component KitchenUi::renderOrderList(OrderList &orderList) {
-    int selected = 0;
-    auto container = ftxui::Container::Horizontal({}, &selected);
+ftxui::Component KitchenUi::renderOrderList() {
+    selected = std::make_shared<int>(0);
+    auto container = ftxui::Container::Horizontal({}, &*selected);
 
-    return ftxui::Renderer(container, [&orderList, container, &selected] {
+    return ftxui::Renderer(container, [container, this] {
         container->DetachAllChildren();
         int current = 0;
-        for (const auto& order : orderList.getOrders()) {
-            container->Add(renderOrder(order, orderList, current++ == selected));
+        for (const auto& order : orderList->getOrders()) {
+            container->Add(renderOrder(order, current++ == *selected));
         }
 
         ftxui::Elements orders;
@@ -61,4 +62,23 @@ ftxui::Component KitchenUi::renderOrderList(OrderList &orderList) {
         }
         return ftxui::hflow(orders);
     }) | ftxui::border | ftxui::color(COLOR);
+}
+
+KitchenUi::KitchenUi(const std::string& filepath) : filepath(filepath) {
+    orderList = std::make_shared<OrderList>(filepath);
+}
+
+void KitchenUi::setFilepath(const std::string &filepath) {
+    this->filepath = filepath;
+    orderList->importOrders(filepath);
+}
+
+ftxui::Component KitchenUi::getRenderer() {
+    auto listRenderer = renderOrderList();
+    auto windowRenderer = ftxui::Renderer(listRenderer, [listRenderer, this] {
+        orderList->importOrders(filepath);
+        return listRenderer->Render();
+    });
+
+    return windowRenderer;
 }

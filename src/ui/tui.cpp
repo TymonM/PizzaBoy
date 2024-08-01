@@ -6,11 +6,6 @@
 
 Tui::Tui() = default;
 
-void Tui::setOrderList(std::shared_ptr<OrderList> orderList) {
-    this->orderList = orderList;
-    postScreenUpdate();
-}
-
 void Tui::postScreenUpdate() {
     if (this->screen == nullptr) {
         return;
@@ -18,11 +13,13 @@ void Tui::postScreenUpdate() {
     this->screen->PostEvent(ftxui::Event::Custom);
 }
 
-void Tui::start() {
+void Tui::start(const std::string& kitchenFilepath) {
     auto _screen = ftxui::ScreenInteractive::Fullscreen();
     this->screen = &_screen;
 
-    auto window_renderer = KitchenUi::renderOrderList(*orderList);
+    auto kitchenUi = KitchenUi(kitchenFilepath);
+
+    auto window_renderer = kitchenUi.getRenderer();
     _screen.Loop(window_renderer);
     this->screen = nullptr;
 }

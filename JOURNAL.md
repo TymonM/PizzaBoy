@@ -25,6 +25,7 @@
     - [Formatting the prices nicely](#formatting-the-prices-nicely)
     - [Rendering a whole list of `Order`s](#rendering-a-whole-list-of-orders)
     - [Buttons to delete `Order`s + thread safety](#buttons-to-delete-orders--thread-safety)
+    - [Communication via JSON files](#communication-via-json-files)
 
 # Journal
 ## Core Functionality
@@ -261,3 +262,6 @@ void OrderList::clear() {
     orders.clear();
 }
 ```
+
+### Communication via JSON files
+The `KitchenUi` (I refactored all the Renderers to methods of a single class) now constantly reads and writes to a `.json` file, which is the `OrderList` in JSON format. This means that the `KitchenUi` can be run on multiple machines, and they will all be able to see the same list of orders and update them live, even without access to the same `OrderList` object in memory. This uses the previously implemented functionality in [JSON export](#json-export) ([tests/test_import_export_orders.cpp](tests/test_import_export_orders.cpp).)

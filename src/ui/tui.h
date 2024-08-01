@@ -14,21 +14,11 @@
 class Tui {
 private:
     ftxui::ScreenInteractive* screen{};
-    std::shared_ptr<OrderList> orderList;
 public:
     /**
      * @brief Construct a new Tui object.
      */
     Tui();
-
-    /**
-     * @brief Set the OrderList object to be displayed by the Tui.
-     * Since the OrderList object is passed as a std::shared_ptr, the Tui will automatically update
-     * when the OrderList changes, such as when orders are added or removed (at the next screen update).
-     *
-     * @param orderList A shared_ptr to the OrderList object to be displayed by the Tui.
-     */
-    void setOrderList(std::shared_ptr<OrderList> orderList);
 
     /**
      * @brief Update the screen, if there is one.
@@ -40,8 +30,11 @@ public:
      * @brief Start the text-based user interface.
      *
      * Initiates the TUI, which runs an infinite loop until the program is explicitly closed by the user.
+     * This function initializes the screen and the kitchen UI, rendering the kitchen UI on the screen.
+     *
+     * @param kitchenFilepath The filepath to the kitchen's list of orders.
      */
-    void start();
+    void start(const std::string& kitchenFilepath);
 };
 
 
