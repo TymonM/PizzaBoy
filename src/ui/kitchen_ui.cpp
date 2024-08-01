@@ -19,7 +19,6 @@ ftxui::Component KitchenUi::renderOrder(const Order &order, bool orderSelected) 
     auto deleteButton = ftxui::Button("Delete", [order, this] {
         orderList->erase(orderList->find(order.getDescription()));
         orderList->exportOrders(filepath);
-        *selected = std::max(0, *selected - 1);
     }, ftxui::ButtonOption::Ascii());
     if (orderSelected) {
         deleteButton |= ftxui::bgcolor(SELECTED_COLOR);
@@ -78,6 +77,8 @@ ftxui::Component KitchenUi::getRenderer() {
     auto listRenderer = renderOrderList();
     auto windowRenderer = ftxui::Renderer(listRenderer, [listRenderer, this] {
         orderList->importOrders(filepath);
+        // Ensure selected index is within bounds
+        *selected = std::max(0, std::min(*selected, (int)orderList->size() - 1));
         return listRenderer->Render();
     });
 
