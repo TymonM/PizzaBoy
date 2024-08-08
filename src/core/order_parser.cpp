@@ -11,6 +11,7 @@ nlohmann::json OrderParser::exportOrderItem(const OrderItem &item) {
 
 nlohmann::json OrderParser::exportOrder(const Order &order) {
     nlohmann::json j;
+    j["id"] = order.getId();
     j["description"] = order.getDescription();
     j["items"] = nlohmann::json::array();
     for (const auto &item : order.getItems()) {
@@ -39,6 +40,7 @@ Order OrderParser::importOrder(const nlohmann::json &j) {
     for (const auto &item : j["items"]) {
         order.addItem(importOrderItem(item));
     }
+    order.setId(j["id"]);
     return order;
 }
 

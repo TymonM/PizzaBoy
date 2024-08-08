@@ -65,6 +65,7 @@ public:
      * @brief Deserializes an OrderList object from a JSON representation.
      *
      * Constructs an OrderList object from its JSON representation, which should be a JSON array of orders, each represented as a JSON object. This method allows for the bulk reconstruction of orders from structured JSON data, populating an OrderList with the deserialized orders.
+     * Note that Order IDs are not preserved during deserialization.
      *
      * @param list The OrderList object to populate with deserialized orders.
      * @param j The JSON object representing an OrderList.

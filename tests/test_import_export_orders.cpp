@@ -56,11 +56,13 @@ void TEST_export_order_list() {
     ASSERT(exported["orders"][0]["items"][0]["item"]["name"] == "Classic Pepperoni Pizza");
     ASSERT(exported["orders"][0]["items"][0]["item"]["price"] == 10.0);
     ASSERT(exported["orders"][0]["items"][0]["quantity"] == 1);
+    ASSERT(exported["orders"][0]["id"] == 0);
     ASSERT(exported["orders"][1]["description"] == "For Alice, delivered to 3 Arch Ave.");
     ASSERT(exported["orders"][1]["items"].size() == 1);
     ASSERT(exported["orders"][1]["items"][0]["item"]["name"] == "Classic Pepperoni Pizza");
     ASSERT(exported["orders"][1]["items"][0]["item"]["price"] == 10.0);
     ASSERT(exported["orders"][1]["items"][0]["quantity"] == 2);
+    ASSERT(exported["orders"][1]["id"] == 1);
 }
 
 void TEST_export_order_list_to_file() {
@@ -75,6 +77,7 @@ void TEST_export_order_list_to_file() {
   "orders": [
     {
       "description": "For Mike, delivered to 1 Elm Ave.",
+      "id": 0,
       "items": [
         {
           "item": {
@@ -87,6 +90,7 @@ void TEST_export_order_list_to_file() {
     },
     {
       "description": "For Alice, delivered to 3 Arch Ave.",
+      "id": 1,
       "items": [
         {
           "item": {
@@ -119,12 +123,14 @@ void TEST_import_order_list() {
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
     ASSERT(it->getItems().begin()->getQuantity() == 1);
+    ASSERT(it->getId() == 0);
     it++;
     ASSERT(it->getDescription() == "For Alice, delivered to 3 Arch Ave.");
     ASSERT(it->getItems().size() == 1);
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
     ASSERT(it->getItems().begin()->getQuantity() == 2);
+    ASSERT(it->getId() == 1);
 
     // remove the file
     std::remove("test_import_orders.json");
@@ -144,12 +150,14 @@ void TEST_import_order_list_constructor() {
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
     ASSERT(it->getItems().begin()->getQuantity() == 1);
+    ASSERT(it->getId() == 0);
     it++;
     ASSERT(it->getDescription() == "For Alice, delivered to 3 Arch Ave.");
     ASSERT(it->getItems().size() == 1);
     ASSERT(it->getItems().begin()->getItem().getName() == "Classic Pepperoni Pizza");
     ASSERT(it->getItems().begin()->getItem().getPrice() == 10.0);
     ASSERT(it->getItems().begin()->getQuantity() == 2);
+    ASSERT(it->getId() == 1);
 
     // remove the file
     std::remove("test_import_orders_constructor.json");
