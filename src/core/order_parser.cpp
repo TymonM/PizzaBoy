@@ -48,6 +48,6 @@ void OrderParser::importOrderList(OrderList& list, const nlohmann::json &j) {
     list.clear();
     for (const auto &order : j["orders"]) {
         auto importedOrder = importOrder(order);
-        list.pushOrder(importedOrder);
+        list.pushOrder(importedOrder, false);
     }
 }

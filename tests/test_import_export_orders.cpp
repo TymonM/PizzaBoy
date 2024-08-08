@@ -191,6 +191,21 @@ Yum)");
     std::remove("test_export_orders_special_chars.json");
 }
 
+void TEST_import_order_list_preserve_ids() {
+    {
+        OrderList writeList = buildSampleList();
+        writeList.erase(writeList.find("For Mike"));
+        writeList.exportOrders("test_import_orders_preserve_ids.json");
+    } // writeList goes out of scope and is destroyed
+    OrderList readList("test_import_orders_preserve_ids.json");
+    auto orders = readList.getOrders();
+    auto it = orders.begin();
+    ASSERT(it->getId() == 1);
+
+    // remove the file
+    std::remove("test_import_orders_preserve_ids.json");
+}
+
 int main() {
     TEST_export_order_item();
     TEST_export_whole_order();
@@ -200,6 +215,7 @@ int main() {
     TEST_import_order_list();
     TEST_import_order_list_constructor();
     TEST_export_order_list_with_special_chars_to_file();
+    TEST_import_order_list_preserve_ids();
 
     return 0;
 }

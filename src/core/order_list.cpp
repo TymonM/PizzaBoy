@@ -21,7 +21,7 @@ OrderList::OrderList(const OrderList &other) {
     orders = other.orders;
 }
 
-void OrderList::pushOrder(Order &order) {
+void OrderList::pushOrder(Order &order, bool generateNewId) {
     if (order.getItems().empty()) {
         throw std::invalid_argument("Order must contain at least one item");
     }
@@ -37,7 +37,9 @@ void OrderList::pushOrder(Order &order) {
         it++;
         id++;
     }
-    order.setId(id);
+    if (generateNewId) {
+        order.setId(id);
+    }
     orders.insert(it, order);
 }
 

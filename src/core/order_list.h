@@ -49,14 +49,15 @@ public:
     void clear();
 
     /**
-     * @brief Adds a new order to the list, assigning it a unique ID.
+     * @brief Adds a new order to the list, assigning it a unique ID unless specified otherwise.
      * The generated id is the lowest id (starting from 0) which doesn't already exist in the list.
      * Throws std::invalid_argument if the order contains no items.
      *
      * @param order The order to add.
+     * @param generateNewId Whether to generate a new ID for the order.
      * @throws std::invalid_argument If the order is empty.
      */
-    void pushOrder(Order& order);
+    void pushOrder(Order& order, bool generateNewId = true);
 
     /**
      * @brief Returns the number of orders in the list.
